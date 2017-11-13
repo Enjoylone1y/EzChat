@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:src="@color/interval_color"
+        android:scaleType="center"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iv_cover"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_folder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="所有照片"
+            android:textColor="#262626"
+            android:maxLines="1"
+            android:maxWidth="200dp"/>
+
+        <TextView
+            android:id="@+id/tv_image_count"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_color"
+            android:textSize="16sp"
+            android:text="12张"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_sel_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_folder_status"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/interval_color"
+        android:layout_below="@+id/iv_cover"
+        android:layout_marginTop="1dp"/>
+</RelativeLayout>

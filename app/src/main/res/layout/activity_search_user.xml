@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/title_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <EditText
+            android:id="@+id/et_user_account"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="45dp"
+            android:background="@drawable/et_back_ground"
+            android:textColorHint="@color/hint_color"
+            android:hint="@string/please_input_account"/>
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_marginTop="5dp"
+            android:background="@color/app_blue_color"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/search"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

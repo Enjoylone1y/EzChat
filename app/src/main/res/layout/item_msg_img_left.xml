@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|top"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/iv_head_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"/>
+
+    <com.joooonho.SelectableRoundedImageView
+        android:id="@+id/iv_msg_img"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:maxWidth="200dp"
+        android:maxHeight="200dp"
+        app:sriv_right_bottom_corner_radius="5dp"
+        app:sriv_right_top_corner_radius="5dp"
+        app:sriv_left_bottom_corner_radius="5dp"
+        app:sriv_left_top_corner_radius="5dp"
+        android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/progress_status"
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:layout_marginLeft="2dp"
+        android:indeterminateBehavior="repeat"
+        android:visibility="visible"
+        android:indeterminateDrawable="@drawable/progress_bar_rotate"/>
+</LinearLayout>

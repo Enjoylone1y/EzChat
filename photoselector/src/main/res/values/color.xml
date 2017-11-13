@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#ffffff</color>
+    <color name="blue_gray">#3f5c6c</color>
+    <color name="interval_color">#e7e5e5</color>
+    <color name="gray_color">#bdbdbd</color>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_friend"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingBottom="5dp">
+
+    <com.joooonho.SelectableRoundedImageView
+        android:id="@+id/iv_head_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"
+        app:sriv_oval="true"/>
+
+    <TextView
+        android:id="@+id/tv_friend_nick"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/app_name"
+        android:textSize="18sp"
+        android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <View
+        android:layout_below="@+id/layout_friend"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/interval_color"/>
+
+</RelativeLayout>

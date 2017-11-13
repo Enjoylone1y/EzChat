@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|top"
+    android:padding="5dp">
+
+    <ImageView
+        android:src="@mipmap/app_logo_main"
+        android:id="@+id/iv_head_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:gravity="center"
+        android:id="@+id/tv_chat_msg"
+        android:layout_width="80dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="15dp">
+
+        <com.joooonho.SelectableRoundedImageView
+            android:id="@+id/iv_video_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:sriv_right_bottom_corner_radius="5dp"
+            app:sriv_right_top_corner_radius="5dp"
+            app:sriv_left_bottom_corner_radius="5dp"
+            app:sriv_left_top_corner_radius="5dp"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/iv_btn_play"
+            android:src="@mipmap/ic_video_play"
+            android:background="@drawable/img_circle_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="center"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/tv_video_time"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/white_color"
+            android:background="@color/tr_black_color"/>
+
+    </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_status"
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        android:visibility="visible"
+        android:layout_marginLeft="2dp"
+        android:indeterminateDrawable="@drawable/progress_bar_rotate"/>
+
+
+</LinearLayout>

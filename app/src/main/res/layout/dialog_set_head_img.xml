@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_color"
+    android:id="@+id/layout_dialog">
+
+    <TextView
+        android:id="@+id/tv_take_photo"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="@string/dialog_take_photo"
+        android:textColor="@color/app_black_color"
+        android:textSize="18sp"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/interval_color"/>
+
+    <TextView
+        android:id="@+id/tv_select_img"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="@string/dialog_select_photo"
+        android:textColor="@color/app_black_color"
+        android:textSize="18sp"
+        android:gravity="center"/>
+</LinearLayout>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/interval_color"/>
+
+    <!--输入框-->
+    <LinearLayout
+        android:id="@+id/layout_input"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/iv_input_type"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:scaleType="center"
+            android:src="@mipmap/sound"/>
+
+        <EditText
+            android:id="@+id/et_chat_message"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/et_back_ground"
+            android:textCursorDrawable="@color/app_blue_color"
+            android:visibility="visible"/>
+
+        <com.ezreal.audiorecordbutton.AudioRecordButton
+            android:id="@+id/btn_audio_record"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/app_black_color"
+            android:textSize="18sp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_expression"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:scaleType="center"
+            android:src="@mipmap/expression"/>
+
+        <ImageView
+            android:id="@+id/iv_more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/more"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv_btn_send"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/app_blue_color"
+            android:gravity="center"
+            android:text="@string/text_send"
+            android:textColor="@color/white_color"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/internal_view"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_below="@+id/layout_input"
+        android:background="@color/interval_color"/>
+
+    <!--扩展功能-->
+    <RelativeLayout
+        android:id="@+id/layout_extension"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:layout_below="@+id/internal_view"
+        android:background="@color/white_color"
+        android:gravity="center_vertical|top"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/layout_image"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_btn_img"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/img_corner_background"
+                android:padding="10dp"
+                android:scaleType="center"
+                android:src="@mipmap/ic_more_img"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/tv_image"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_camera"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/layout_image"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_btn_camera"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/img_corner_background"
+                android:padding="10dp"
+                android:scaleType="center"
+                android:src="@mipmap/ic_more_capture"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/tv_camera"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_location"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/layout_camera"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_btn_location"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/img_corner_background"
+                android:padding="10dp"
+                android:scaleType="center"
+                android:src="@mipmap/ic_more_loc"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/tv_location"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_video"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/layout_location"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_btn_video_chat"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/img_corner_background"
+                android:padding="10dp"
+                android:scaleType="center"
+                android:src="@mipmap/ic_video_chat"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/tv_video_chat"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_red_packet"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_image"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_btn_red_packet"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/img_corner_background"
+                android:padding="10dp"
+                android:scaleType="center"
+                android:src="@mipmap/ic_red_packet"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/tv_red_packet"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_msg_tip"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_camera"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/layout_red_packet"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_btn_tip"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/img_corner_background"
+                android:padding="10dp"
+                android:scaleType="center"
+                android:src="@mipmap/ic_tip_msg"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/tv_tip_msg"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_below="@+id/layout_input"
+        android:background="@color/interval_color"/>
+
+    <com.ezreal.emojilibrary.ExpressLayout
+        android:layout_below="@+id/internal_view"
+        android:id="@+id/layout_express"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_color"
+        android:visibility="gone"/>
+</RelativeLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+    <com.ezreal.timeselectview.WheelView
+        android:id="@+id/province_wv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:itemNumber="3"
+        app:lineColor="@color/default_line_color"
+        app:lineHeight="2dp"
+        app:maskHeight="32dp"
+        app:noEmpty="true"
+        app:normalTextColor="@color/default_unSelect_text_color"
+        app:normalTextSize="14sp"
+        app:selectedTextColor="@color/default_selected_text_color"
+        app:selectedTextSize="18sp"
+        app:unitHeight="50dp"/>
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="40dp"/>
+
+    <com.ezreal.timeselectview.WheelView
+        android:id="@+id/city_wv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:itemNumber="3"
+        app:lineColor="@color/default_line_color"
+        app:lineHeight="2dp"
+        app:maskHeight="32dp"
+        app:noEmpty="true"
+        app:normalTextColor="@color/default_unSelect_text_color"
+        app:normalTextSize="14sp"
+        app:selectedTextColor="@color/default_selected_text_color"
+        app:selectedTextSize="18sp"
+        app:unitHeight="50dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_btn_confirm"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="18sp"
+        android:textColor="@color/white_color"
+        android:background="@color/default_selected_text_color"
+        android:text="@string/confirm"/>
+
+</LinearLayout>

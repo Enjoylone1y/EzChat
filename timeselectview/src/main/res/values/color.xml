@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_line_color">#007de0</color>
+    <color name="default_unSelect_text_color">#7c7979</color>
+    <color name="default_selected_text_color">#007de0</color>
+    <color name="default_round_line_color">#dad7d4</color>
+    <color name="white_color">#ffffff</color>
+</resources>

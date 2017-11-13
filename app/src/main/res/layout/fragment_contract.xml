@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/interval_color">
+
+    <RelativeLayout
+        android:background="@color/white_color"
+        android:id="@+id/layout_add_friend"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/iv_add_friend"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/add_friend"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/iv_add_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/add_friend"
+            android:textSize="16sp"
+            android:textColor="@color/app_black_color"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"/>
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/interval_color"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/white_color"
+        android:id="@+id/layout_msg_notify"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/iv_msg_notify"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/msg_notify"/>
+
+        <TextView
+            android:id="@+id/tv_alarm"
+            android:layout_toRightOf="@+id/iv_msg_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/msg_notify"
+            android:textSize="16sp"
+            android:textColor="@color/app_black_color"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"/>
+
+        <com.javonlee.dragpointview.view.DragPointView
+            android:id="@+id/dpv_unread_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/shape_drag_point_red"
+            android:gravity="center"
+            android:textColor="@color/white_color"
+            android:textSize="16sp"
+            app:centerMinRatio="0.5"
+            app:colorStretching="@color/app_red_color"
+            app:dragCircleRadius="100dp"
+            app:maxDragLength="100dp"
+            app:recoveryAnimBounce="0.25"
+            android:text="1"
+            android:visibility="gone"/>
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/interval_color"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@color/white_color"
+        android:id="@+id/layout_group_chat"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/iv_group_chat"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/group_chat"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/iv_group_chat"
+            android:gravity="center"
+            android:textColor="@color/app_black_color"
+            android:text="@string/group_chat"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:background="@color/white_color"
+        android:id="@+id/rcv_friend"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+</LinearLayout>

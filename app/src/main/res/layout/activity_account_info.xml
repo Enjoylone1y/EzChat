@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/title_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/interval_color">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_head"
+            android:background="@color/white_color"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="80dp">
+
+            <TextView
+                android:text="@string/account_head_picture"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/app_black_color"/>
+
+            <com.joooonho.SelectableRoundedImageView
+                android:id="@+id/iv_head_picture"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="70dp"
+                android:scaleType="fitXY"
+                app:sriv_oval="true"
+                android:src="@mipmap/app_logo_main"
+                android:layout_height="70dp"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"/>
+
+        <RelativeLayout
+            android:background="@color/white_color"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="40dp">
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:text="@string/account_account"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/app_black_color"/>
+
+            <TextView
+                android:layout_toRightOf="@+id/tv_1"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/default_text_color"
+                android:id="@+id/tv_account"
+                android:gravity="center_vertical|right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"/>
+
+        <RelativeLayout
+            android:background="@color/white_color"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/tv_2"
+                android:text="@string/account_nick"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/app_black_color"/>
+
+            <EditText
+                android:layout_toRightOf="@+id/tv_2"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/default_text_color"
+                android:id="@+id/et_account_nick"
+                android:gravity="center_vertical|right"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"/>
+
+        <RelativeLayout
+            android:background="@color/white_color"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/tv_3"
+                android:text="@string/account_sex"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/app_black_color"/>
+
+            <TextView
+                android:layout_toRightOf="@+id/tv_3"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/default_text_color"
+                android:id="@+id/tv_account_sex"
+                android:gravity="center_vertical|right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"/>
+
+        <RelativeLayout
+            android:background="@color/white_color"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="40dp">
+
+            <TextView
+                android:id="@+id/tv_4"
+                android:text="@string/account_birth"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/app_black_color"/>
+
+            <TextView
+                android:layout_toRightOf="@+id/tv_4"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/default_text_color"
+                android:id="@+id/tv_account_birth"
+                android:gravity="center_vertical|right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"/>
+
+        <RelativeLayout
+            android:background="@color/white_color"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="40dp">
+            <TextView
+                android:id="@+id/tv_5"
+                android:text="@string/account_location"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/app_black_color"/>
+
+            <TextView
+                android:layout_toRightOf="@+id/tv_5"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|right"
+                android:textSize="16sp"
+                android:textColor="@color/default_text_color"
+                android:id="@+id/tv_account_location"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"/>
+
+        <RelativeLayout
+            android:background="@color/white_color"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="60dp">
+
+            <TextView
+                android:id="@+id/tv_6"
+                android:text="@string/account_signature"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@color/app_black_color"/>
+
+            <EditText
+                android:hint="@string/signature_hint"
+                android:layout_toRightOf="@+id/tv_6"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/default_text_color"
+                android:id="@+id/et_account_signature"
+                android:gravity="center_vertical|right"
+                android:maxLines="2"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_img"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"/>
+
+    <RadioButton
+        android:id="@+id/img_sel_status"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:button="@null"
+        android:layout_margin="5dp"
+        android:clickable="false"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/radio_button_selector"/>
+
+</RelativeLayout>

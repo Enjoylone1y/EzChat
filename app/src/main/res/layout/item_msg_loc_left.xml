@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="95dp"
+    android:gravity="left|top"
+    android:padding="5dp">
+
+    <ImageView
+        android:src="@mipmap/app_logo_main"
+        android:id="@+id/iv_head_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_msg_left_selector"
+        android:layout_marginLeft="5dp">
+
+        <ImageView
+            android:id="@+id/iv_map"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_msg_map"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:gravity="center_vertical"
+            android:id="@+id/tv_loc_address"
+            android:layout_toRightOf="@+id/iv_map"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:maxWidth="150dp"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:textColor="@color/app_black_color"/>
+
+        <TextView
+            android:id="@+id/tv_show_loc"
+            android:layout_toRightOf="@+id/iv_map"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/tv_loc_address"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:textSize="14sp"
+            android:text="@string/show_location"
+            android:textColor="@color/gray_color"/>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_status"
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:layout_marginLeft="2dp"
+        android:indeterminateBehavior="repeat"
+        android:visibility="visible"
+        android:indeterminateDrawable="@drawable/progress_bar_rotate"/>
+
+</LinearLayout>

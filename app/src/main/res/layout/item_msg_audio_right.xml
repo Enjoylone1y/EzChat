@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right|top"
+    android:padding="5dp">
+
+    <ProgressBar
+        android:id="@+id/progress_status"
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        android:visibility="visible"
+        android:layout_marginRight="2dp"
+        android:indeterminateDrawable="@drawable/progress_bar_rotate"/>
+
+    <TextView
+        android:id="@+id/tv_audio_time"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:layout_marginRight="5dp"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_audio_msg"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_msg_right_selector"
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical|right">
+
+        <ImageView
+            android:id="@+id/iv_audio_sound"
+            android:gravity="center_vertical"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:src="@mipmap/sound_right_0"/>
+    </RelativeLayout>
+
+
+    <ImageView
+        android:src="@mipmap/app_logo_main"
+        android:id="@+id/iv_head_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"/>
+</LinearLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_black_color">
+
+    <com.flurgle.camerakit.CameraView
+        android:id="@+id/camera_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ckFocus="tap"
+        app:ckVideoQuality="max1080p"/>
+
+    <ImageView
+        android:id="@+id/iv_flash_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_flash_auto"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/camera_tip"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/interval_color"
+            android:textSize="14sp"
+            android:layout_marginBottom="10dp"/>
+
+        <com.daimajia.numberprogressbar.NumberProgressBar
+
+            android:layout_below="@+id/tv_tip"
+            android:id="@+id/pre_record_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:progress_text_visibility="invisible"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            app:progress_max="100"
+            app:progress_unreached_color="@color/white_color"
+            app:progress_reached_color="@color/app_blue_color"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/iv_camera_btn"
+            android:layout_below="@+id/pre_record_time"
+            android:layout_centerInParent="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/capture"/>
+
+        <ImageView
+            android:id="@+id/iv_exit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/arrow_down"
+            android:layout_marginLeft="50dp"
+            android:layout_centerVertical="true"/>
+
+
+        <ImageView
+           android:id="@+id/iv_change"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/camera_change"
+            android:layout_marginRight="50dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

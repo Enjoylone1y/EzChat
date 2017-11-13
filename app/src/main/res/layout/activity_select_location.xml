@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/app_blue_color"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_back_btn"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/bt_back_selector"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/location"
+            android:textColor="@color/white_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_btn_send"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:textColor="@color/white_color"
+            android:layout_marginRight="12dp"
+            android:text="@string/text_send"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/record_button_back"/>
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_toLeftOf="@+id/tv_btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/search"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
+
+        <ImageView
+            android:id="@+id/iv_selected_point"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:src="@mipmap/ic_map_center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="125dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_poi_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            android:visibility="visible"
+            android:indeterminateDrawable="@drawable/progress_bar_rotate"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/title_layout"/>
+
+    <EditText
+        android:id="@+id/et_request_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:hint="@string/request_friend_hint"
+        android:textColorHint="@color/hint_color"
+        android:background="@drawable/et_back_ground"/>
+
+    <TextView
+        android:id="@+id/tv_send_request"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/app_blue_color"
+        android:textColor="@color/white_color"
+        android:text="@string/send_request"/>
+</LinearLayout>

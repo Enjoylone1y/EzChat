@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/interval_color"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white_color"
+        android:gravity="center_vertical">
+
+        <com.joooonho.SelectableRoundedImageView
+            android:id="@+id/iv_head_picture"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:sriv_oval="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/app_logo_main"/>
+
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:id="@+id/layout_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/iv_head_picture"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/app_black_color"/>
+
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_user_name"
+                android:layout_marginTop="10dp"
+                android:text="@string/account_tip"
+                android:textColor="@color/app_black_color"/>
+
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_user_name"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/tv_tip"
+                android:text="Ezreal-520"
+                android:textColor="@color/app_black_color"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_group_chat"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white_color"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/iv_group_chat"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/setting"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/iv_group_chat"
+            android:gravity="center"
+            android:text="@string/setting"
+            android:textColor="@color/app_black_color"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+</LinearLayout>

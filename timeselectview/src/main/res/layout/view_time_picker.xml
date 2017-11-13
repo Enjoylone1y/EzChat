@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/default_round_line_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.ezreal.timeselectview.WheelView
+            android:id="@+id/wv_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:itemNumber="5"
+            app:unitHeight="30dp"
+            app:lineColor="@color/default_line_color"
+            app:selectedTextColor="@color/default_selected_text_color"
+            app:normalTextColor="@color/default_unSelect_text_color"
+            app:lineHeight="1dp"
+            app:noEmpty="true"
+            app:normalTextSize="14sp"
+            app:selectedTextSize="22sp"/>
+
+        <com.ezreal.timeselectview.WheelView
+            android:id="@+id/wv_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:itemNumber="5"
+            app:unitHeight="30dp"
+            app:lineColor="@color/default_line_color"
+            app:selectedTextColor="@color/default_selected_text_color"
+            app:normalTextColor="@color/default_unSelect_text_color"
+            app:lineHeight="1dp"
+            app:noEmpty="true"
+            app:normalTextSize="14sp"
+            app:selectedTextSize="22sp"/>
+
+        <com.ezreal.timeselectview.WheelView
+            android:id="@+id/wv_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:itemNumber="5"
+            app:unitHeight="30dp"
+            app:lineColor="@color/default_line_color"
+            app:selectedTextColor="@color/default_selected_text_color"
+            app:normalTextColor="@color/default_unSelect_text_color"
+            app:lineHeight="1dp"
+            app:noEmpty="true"
+            app:normalTextSize="14sp"
+            app:selectedTextSize="22sp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/default_round_line_color"/>
+</LinearLayout>

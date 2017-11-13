@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_poi_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:textColor="@color/black_color"
+            android:text="新太科技大厦"/>
+
+        <TextView
+            android:id="@+id/tv_poi_address"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/app_black_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="广东省广州市天河区建工路4号"
+            android:maxLines="1"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_selected"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/ok"
+        android:visibility="visible"/>
+
+    <View
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/interval_color"/>
+</RelativeLayout>

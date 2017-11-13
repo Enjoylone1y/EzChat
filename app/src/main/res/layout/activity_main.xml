@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_page"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.ezreal.ezchat.widget.ChangeColorIconWithText
+                android:id="@+id/id_indicator_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                app:color="@color/app_blue_color"
+                app:icon="@mipmap/icon_msg"
+                app:text="消息"
+                app:text_size="12sp"/>
+
+            <com.javonlee.dragpointview.view.DragPointView
+                android:id="@+id/dpv_unread_recent_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_drag_point_red"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white_color"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:centerMinRatio="0.5"
+                app:colorStretching="@color/app_red_color"
+                app:dragCircleRadius="50dp"
+                app:maxDragLength="100dp"
+                app:recoveryAnimBounce="0.25"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.ezreal.ezchat.widget.ChangeColorIconWithText
+                android:id="@+id/id_indicator_contact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                app:color="@color/app_blue_color"
+                app:icon="@mipmap/icon_contact"
+                app:text="通讯录"
+                app:text_size="12sp"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone">
+
+            <com.ezreal.ezchat.widget.ChangeColorIconWithText
+                android:id="@+id/id_indicator_found"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                app:color="@color/app_blue_color"
+                app:icon="@mipmap/icon_found"
+                app:text="发现"
+                app:text_size="12sp"/>
+
+            <ImageView
+                android:id="@+id/dpv_found_new_msg"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/point"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.ezreal.ezchat.widget.ChangeColorIconWithText
+                android:id="@+id/id_indicator_me"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                app:color="@color/app_blue_color"
+                app:icon="@mipmap/icon_me"
+                app:text="我"
+                app:text_size="12sp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|top"
+    android:padding="5dp">
+
+    <ImageView
+        android:src="@mipmap/app_logo_main"
+        android:id="@+id/iv_head_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_chat_msg"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:maxWidth="200dp"
+        android:textSize="16sp"
+
+        android:background="@drawable/item_msg_left_selector"
+        android:textColor="@color/app_black_color"/>
+
+    <ProgressBar
+        android:id="@+id/progress_status"
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:layout_marginLeft="2dp"
+        android:indeterminateBehavior="repeat"
+        android:visibility="visible"
+        android:indeterminateDrawable="@drawable/progress_bar_rotate"/>
+</LinearLayout>

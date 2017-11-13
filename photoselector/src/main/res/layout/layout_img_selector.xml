@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        android:background="#1296db"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/bt_back_selector"
+            android:scaleType="center"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="选择图片"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:text="发送(0/9)"
+            android:gravity="center"
+            android:textColor="@color/blue_gray"
+            android:background="@drawable/tv_btn_round_white"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:background="#7a8386"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_folder_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:text="全部照片"
+                android:maxLines="1"
+                android:gravity="center"
+                android:maxWidth="100dp"/>
+
+            <ImageView
+                android:layout_toRightOf="@+id/tv_folder_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tran_angle"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="2dp"/>
+
+            <RadioButton
+                android:id="@+id/btn_source_img"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="原图"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="预览(0/9)"
+                android:textColor="@color/blue_gray"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

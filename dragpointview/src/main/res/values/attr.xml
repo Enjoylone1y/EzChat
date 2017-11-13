@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DragPointView">
+
+        <attr name="maxDragLength" format="dimension"/>
+        <attr name="centerCircleRadius" format="dimension"/>
+        <attr name="dragCircleRadius" format="dimension"/>
+        <attr name="centerMinRatio" format="float"/>
+        <attr name="recoveryAnimDuration" format="integer"/>
+        <attr name="recoveryAnimBounce" format="float"/>
+        <attr name="colorStretching" format="color"/>
+        <attr name="sign" format="string"/>
+        <attr name="clearSign" format="string"/>
+        <attr name="canDrag" format="boolean"/>
+
+    </declare-styleable>
+
+</resources>
