@@ -5,42 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/layout_title"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:orientation="horizontal"
-        android:background="#1296db"
-        android:padding="5dp">
-
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/bt_back_selector"
-            android:scaleType="center"/>
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="选择图片"
-            android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/tv_send"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:text="发送(0/9)"
-            android:gravity="center"
-            android:textColor="@color/blue_gray"
-            android:background="@drawable/tv_btn_round_white"/>
-
-    </LinearLayout>
+    <include layout="@layout/layout_title"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

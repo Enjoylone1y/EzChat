@@ -6,12 +6,11 @@
     android:orientation="vertical"
     android:background="#000">
 
-    <com.suntek.commonlibrary.widget.PinchImageView
+    <com.bm.library.PhotoView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:scaleType="matrix"/>
+        android:layout_centerInParent="true"/>
 
     <TextView
         android:id="@+id/tv_show_big"

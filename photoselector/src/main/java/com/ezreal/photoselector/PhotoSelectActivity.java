@@ -1,37 +1,42 @@
 package com.ezreal.photoselector;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 图片选择器
- * Created by wudeng on 2017/11/7.
+ * 图片选择页面
+ * Created by wudeng on 2017/11/13.
  */
 
-public class PhotoSelector extends LinearLayout implements View.OnClickListener {
+public class PhotoSelectActivity extends Activity implements View.OnClickListener{
+
+    private static final int REQUEST_SHOW_ITEM = 0x3000;
+    private static final int REQUEST_SHOW_LIST = 0x3001;
 
     private TextView mTvFolderName;
     private TextView mTvPreview;
@@ -51,23 +56,17 @@ public class PhotoSelector extends LinearLayout implements View.OnClickListener 
     private List<ImageBean> mImageBeans;
     private RecycleViewAdapter<ImageBean> mImageAdapter;
 
-    private OnImageSelectorListener mSelectorListener;
-
     private boolean isSourceImage = false;
+
     private List<ImageBean> mSelectedImages = new ArrayList<>();
+    private ImageBean mShowItem;
 
     private MyHandler mHandler = new MyHandler();
 
-    public PhotoSelector(Context context) {
-        this(context, null);
-    }
-
-    public PhotoSelector(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public PhotoSelector(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_photo_selector);
         initView();
         initImageList();
         initPopupWindow();
@@ -75,16 +74,14 @@ public class PhotoSelector extends LinearLayout implements View.OnClickListener 
     }
 
     private void initView() {
-        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.layout_img_selector,
-                this, true);
-        mImageListView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mBtnSource = (RadioButton) rootView.findViewById(R.id.btn_source_img);
-        mTvFolderName = (TextView) rootView.findViewById(R.id.tv_folder_name);
-        mTvPreview = (TextView) rootView.findViewById(R.id.tv_preview);
-        mIvBack = (ImageView) rootView.findViewById(R.id.iv_back);
-        mTvSend = (TextView) rootView.findViewById(R.id.tv_send);
+        mImageListView = (RecyclerView) findViewById(R.id.recycler_view);
+        mBtnSource = (RadioButton) findViewById(R.id.btn_source_img);
+        mTvFolderName = (TextView) findViewById(R.id.tv_folder_name);
+        mTvPreview = (TextView) findViewById(R.id.tv_preview);
+        mIvBack = (ImageView) findViewById(R.id.iv_back);
+        mTvSend = (TextView) findViewById(R.id.tv_send);
 
-        mLayoutBottom = (RelativeLayout) rootView.findViewById(R.id.layout_bottom);
+        mLayoutBottom = (RelativeLayout) findViewById(R.id.layout_bottom);
 
         mIvBack.setOnClickListener(this);
         mTvSend.setOnClickListener(this);
@@ -101,67 +98,79 @@ public class PhotoSelector extends LinearLayout implements View.OnClickListener 
 
     private void initImageList() {
         mImageBeans = new ArrayList<>();
-        mImageListView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        mImageListView.addItemDecoration(new GridItemDecoration(getContext()));
-        mImageAdapter = new RecycleViewAdapter<ImageBean>(getContext(), mImageBeans) {
+        mImageListView.setLayoutManager(new GridLayoutManager(this, 3));
+        mImageListView.addItemDecoration(new GridItemDecoration(this));
+        mImageAdapter = new RecycleViewAdapter<ImageBean>(this, mImageBeans) {
             @Override
             public int setItemLayoutId(int position) {
-                return R.layout.item_image;
+                return R.layout.item_image_sel;
             }
 
             @Override
-            public void bindView(RViewHolder holder, int position) {
-                ImageBean image = mImageBeans.get(position);
+            public void bindView(RViewHolder holder, final int position) {
+                final ImageBean image = mImageBeans.get(position);
                 ImageView imageView = holder.getImageView(R.id.iv_img);
-                Glide.with(getContext())
+                Glide.with(PhotoSelectActivity.this)
                         .load(image.getPath()).diskCacheStrategy(DiskCacheStrategy.ALL)
                         .error(R.drawable.bg_img_defalut)
                         .into(imageView);
-                RadioButton status = (RadioButton) holder.getConvertView()
+
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mShowItem = image;
+                        previewByItem();
+                    }
+                });
+
+                final RadioButton status = (RadioButton) holder.getConvertView()
                         .findViewById(R.id.img_sel_status);
+                status.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ImageBean imageBean = mImageBeans.get(position);
+                        if (imageBean.isSelected()) {
+                            imageBean.setSelected(false);
+                            mSelectedImages.remove(imageBean);
+                            mImageAdapter.notifyItemChanged(position);
+                            updateBtnState();
+                        } else if (mSelectedImages.size() < 9) {
+                            imageBean.setSelected(true);
+                            mSelectedImages.add(imageBean);
+                            mImageAdapter.notifyItemChanged(position);
+                            updateBtnState();
+                        } else {
+                            status.setChecked(false);
+                            Toast.makeText(PhotoSelectActivity.this,
+                                    "一次只能选择9张喔~",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
                 status.setChecked(image.isSelected());
             }
         };
 
-        mImageAdapter.setItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(RViewHolder holder, int position) {
-                ImageBean imageBean = mImageBeans.get(position);
-                if (imageBean.isSelected()) {
-                    imageBean.setSelected(false);
-                    mSelectedImages.remove(imageBean);
-                    mImageAdapter.notifyItemChanged(position);
-                    updateBtnState();
-                } else if (mSelectedImages.size() < 9) {
-                    imageBean.setSelected(true);
-                    mSelectedImages.add(imageBean);
-                    mImageAdapter.notifyItemChanged(position);
-                    updateBtnState();
-                } else {
-                    if (mSelectorListener != null) {
-                        mSelectorListener.onOverSelect();
-                    }
-                }
-            }
-        });
         mImageListView.setAdapter(mImageAdapter);
     }
 
 
+    /**
+     * 初始化 照片文件夹 选择器（popupWindow）
+     */
     private void initPopupWindow() {
         // 弹窗初始化,高度设置为屏幕的 3/4
-        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.popup_window,
+        View rootView = LayoutInflater.from(this).inflate(R.layout.popup_window,
                 mLayoutBottom, false);
-        int popupHeight = (int) (getContext().getResources().getDisplayMetrics().heightPixels * 0.75f);
-        mFolderWindow = new PopupWindow(rootView, LayoutParams.MATCH_PARENT, popupHeight);
+        int popupHeight = (int) (this.getResources().getDisplayMetrics().heightPixels * 0.75f);
+        mFolderWindow = new PopupWindow(rootView, LinearLayout.LayoutParams.MATCH_PARENT, popupHeight);
         mFolderWindow.setOutsideTouchable(true);
         mFolderWindow.setFocusable(true);
 
         // 文件夹列表初始化
         mFolderBeans = new ArrayList<>();
         RecyclerView folderListView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        folderListView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mFolderAdapter = new RecycleViewAdapter<FolderBean>(getContext(), mFolderBeans) {
+        folderListView.setLayoutManager(new LinearLayoutManager(this));
+        mFolderAdapter = new RecycleViewAdapter<FolderBean>(this, mFolderBeans) {
             @Override
             public int setItemLayoutId(int position) {
                 return R.layout.item_folder;
@@ -178,7 +187,7 @@ public class PhotoSelector extends LinearLayout implements View.OnClickListener 
                 holder.setText(R.id.tv_image_count, String.valueOf(size) + " 张");
                 holder.setVisible(R.id.iv_sel_status, selected);
                 ImageView imageView = holder.getImageView(R.id.iv_cover);
-                Glide.with(getContext())
+                Glide.with(PhotoSelectActivity.this)
                         .load(image.getPath()).diskCacheStrategy(DiskCacheStrategy.ALL)
                         .error(R.drawable.bg_img_defalut)
                         .into(imageView);
@@ -216,13 +225,12 @@ public class PhotoSelector extends LinearLayout implements View.OnClickListener 
      * 加载手机照片数据
      */
     private void loadImageData() {
-        ImageUtils.loadImageList(getContext(), new ImageUtils.OnLoadImageCallBack() {
+        ImageUtils.loadImageList(this, new ImageUtils.OnLoadImageCallBack() {
             @Override
             public void callBack(List<FolderBean> folderList) {
                 if (folderList.isEmpty()) {
-                    if (mSelectorListener != null) {
-                        mSelectorListener.onImageEmpty();
-                    }
+                    Toast.makeText(PhotoSelectActivity.this,
+                            "无照片~",Toast.LENGTH_SHORT).show();
                 } else {
                     mSelectedFolder = folderList.get(0);
                     mSelFolderIndex = 0;
@@ -289,24 +297,19 @@ public class PhotoSelector extends LinearLayout implements View.OnClickListener 
                 showPopup();
             }
         } else if (v.getId() == R.id.iv_back) {
-            if (mSelectorListener != null) {
-                mSelectorListener.onBackClick();
-            }
+           this.setResult(RESULT_CANCELED);
+           this.finish();
         } else if (v.getId() == R.id.tv_send) {
-            if (mSelectorListener != null) {
-                mSelectorListener.onSend(mSelectedImages, isSourceImage);
-            }
+            sendImage();
         } else if (v.getId() == R.id.tv_preview) {
-            if (mSelectorListener != null) {
-                mSelectorListener.onPreview(mSelectedImages, isSourceImage);
-            }
+            previewByBtn();
         } else if (v.getId() == R.id.btn_source_img) {
             if (mBtnSource.isChecked()) {
                 mBtnSource.setChecked(false);
                 isSourceImage = false;
             } else {
                 mBtnSource.setChecked(true);
-                isSourceImage = false;
+                isSourceImage = true;
             }
         }
     }
@@ -322,20 +325,47 @@ public class PhotoSelector extends LinearLayout implements View.OnClickListener 
         mFolderWindow.dismiss();
     }
 
-    public void setSelectorListener(OnImageSelectorListener listener) {
-        mSelectorListener = listener;
-
+    private void previewByItem(){
+        Intent intent = new Intent(this,ImagePreviewActivity.class);
+        intent.putExtra("FLAG",ImagePreviewActivity.FLAG_SHOW_ITEM);
+        intent.putExtra("IMAGE_ITEM",mShowItem);
+        startActivityForResult(intent,REQUEST_SHOW_ITEM);
     }
 
-    public interface OnImageSelectorListener {
-        void onBackClick();
-
-        void onOverSelect();
-
-        void onImageEmpty();
-
-        void onSend(List<ImageBean> selectedImages, boolean sourceSelected);
-
-        void onPreview(List<ImageBean> selectedImages, boolean sourceSelected);
+    private void previewByBtn(){
+        Intent intent = new Intent(this,ImagePreviewActivity.class);
+        intent.putExtra("FLAG",ImagePreviewActivity.FLAG_SHOW_LIST);
+        intent.putExtra("IMAGE_LIST", (Serializable) mSelectedImages);
+        startActivityForResult(intent,REQUEST_SHOW_LIST);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 预览界面点击了“发送”按钮
+        if (resultCode == RESULT_OK){
+            if (requestCode == REQUEST_SHOW_ITEM){
+                if (mShowItem != null){
+                    mSelectedImages.clear();
+                    mSelectedImages.add(mShowItem);
+                    sendImage();
+                }
+            }else if (requestCode == REQUEST_SHOW_LIST){
+                sendImage();
+            }
+        }
+    }
+
+    private void sendImage(){
+        Intent intent = new Intent();
+        String[] path = new String[mSelectedImages.size()];
+        for (int i =0;i<mSelectedImages.size();i++){
+            path[i] = mSelectedImages.get(i).getPath();
+        }
+        intent.putExtra("images",path);
+        setResult(RESULT_OK,intent);
+        finish();
+    }
+
 }

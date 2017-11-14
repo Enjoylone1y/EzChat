@@ -10,8 +10,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bm.library.PhotoView;
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.utils.ConvertUtils;
 import com.netease.nimlib.sdk.NIMClient;
@@ -39,7 +41,7 @@ public class ShowImageActivity extends BaseActivity {
     private static final String TAG = ShowImageActivity.class.getSimpleName();
 
     @BindView(R.id.image_view)
-    PinchImageView mIvImage;
+    PhotoView mIvImage;
     @BindView(R.id.tv_show_big)
     TextView mTvShowBig;
 
@@ -112,6 +114,11 @@ public class ShowImageActivity extends BaseActivity {
     }
 
     private void initImage() {
+
+        mIvImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mIvImage.enable();
+        mIvImage.setMaxScale(4);
+
         mMessage = (IMMessage) getIntent().getSerializableExtra("IMMessage");
         mTvShowBig.setVisibility(View.GONE);
 

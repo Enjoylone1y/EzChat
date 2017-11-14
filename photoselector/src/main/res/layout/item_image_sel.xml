@@ -17,7 +17,6 @@
         android:layout_height="20dp"
         android:button="@null"
         android:layout_margin="5dp"
-        android:clickable="false"
         android:layout_alignParentRight="true"
         android:background="@drawable/radio_button_selector"/>
 

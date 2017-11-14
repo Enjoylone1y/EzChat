@@ -1,10 +1,12 @@
 package com.ezreal.photoselector;
 
+import java.io.Serializable;
+
 /**
  * Created by wudeng on 2017/11/7.
  */
 
-public class ImageBean {
+public class ImageBean implements Serializable{
 
     private long id;
     private String name;

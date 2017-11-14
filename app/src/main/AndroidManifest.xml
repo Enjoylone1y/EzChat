@@ -130,7 +130,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.ShowVideoActivity"/>
         <activity android:name=".activity.ShowLocActivity"/>
-        <activity android:name=".activity.SelectPhotoActivity"/>
         <activity android:name=".activity.ChatSettingActivity"/>
 
         <!--网易云通讯相关-->

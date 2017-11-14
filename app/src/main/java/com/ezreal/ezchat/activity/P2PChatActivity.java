@@ -21,6 +21,7 @@ import com.ezreal.ezchat.chat.RViewHolder;
 import com.ezreal.ezchat.handler.NimUserHandler;
 import com.ezreal.ezchat.widget.ChatInputLayout;
 import com.ezreal.ezchat.widget.MsgRecyclerView;
+import com.ezreal.photoselector.PhotoSelectActivity;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.msg.MessageBuilder;
@@ -454,7 +455,7 @@ public class P2PChatActivity extends BaseActivity
 
     @Override
     public void photoBtnClick() {
-        Intent intent = new Intent(this, SelectPhotoActivity.class);
+        Intent intent = new Intent(this, PhotoSelectActivity.class);
         startActivityForResult(intent, SELECT_PHOTO);
     }
 
