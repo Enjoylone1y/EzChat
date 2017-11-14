@@ -100,7 +100,6 @@ public class ImagePreviewActivity extends Activity {
             View view = LayoutInflater.from(this).inflate(R.layout.item_image_pre,
                     null, false);
             PhotoView photoView = (PhotoView) view.findViewById(R.id.iv_img);
-            photoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             photoView.setMaxScale(4);
             photoView.enable();
             Glide.with(ImagePreviewActivity.this)

@@ -105,7 +105,6 @@ public class ChatInputLayout extends RelativeLayout {
 
     }
 
-
     private void initListener() {
         // 文本输入框触摸监听
         mEtInput.setOnTouchListener(new MyOnTouchListener());
@@ -178,12 +177,20 @@ public class ChatInputLayout extends RelativeLayout {
         });
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (h > oldh){
+            if (mLayoutListener != null){
+                mLayoutListener.exLayoutShow();
+            }
+        }
+    }
 
     /************ 按钮点击事件 ***********/
 
     @OnClick(R.id.iv_input_type)
     public void clickInputTypeBtn() {
-
         if (isSoftInputShow()) {
             hideSoftInput();
         } else if (mExtensionLayout.isShown()) {
@@ -365,9 +372,26 @@ public class ChatInputLayout extends RelativeLayout {
         return SystemUtils.getKeyBoardHeight(mActivity) != 0;
     }
 
-
     public void setLayoutListener(OnInputLayoutListener layoutListener) {
         this.mLayoutListener = layoutListener;
+    }
+
+    /**
+     * 隐藏所有已显示的布局（键盘，表情，扩展）
+     */
+    public void hideOverView(){
+        if (isSoftInputShow()){
+            hideSoftInput();
+        }
+
+        if (mExpressLayout.isShown()){
+            mExpressLayout.setVisibility(GONE);
+            mIvExpress.setImageResource(R.mipmap.expression);
+        }
+
+        if (mExtensionLayout.isShown()){
+            mExtensionLayout.setVisibility(GONE);
+        }
     }
 
     public interface OnInputLayoutListener {
@@ -382,5 +406,7 @@ public class ChatInputLayout extends RelativeLayout {
         void audioRecordFinish(String audioFilePath, long recordTime);
 
         void audioRecordError(String message);
+
+        void exLayoutShow();
     }
 }

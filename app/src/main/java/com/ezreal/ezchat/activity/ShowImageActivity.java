@@ -114,8 +114,6 @@ public class ShowImageActivity extends BaseActivity {
     }
 
     private void initImage() {
-
-        mIvImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mIvImage.enable();
         mIvImage.setMaxScale(4);
 

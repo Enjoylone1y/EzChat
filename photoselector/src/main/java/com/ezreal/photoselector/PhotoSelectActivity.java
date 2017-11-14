@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -43,30 +44,25 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
     private ImageView mIvBack;
     private TextView mTvSend;
     private RadioButton mBtnSource;
-
     private RelativeLayout mLayoutBottom;
     private PopupWindow mFolderWindow;
-
     private List<FolderBean> mFolderBeans;
     private RecycleViewAdapter<FolderBean> mFolderAdapter;
     private int mSelFolderIndex = 0;
     private FolderBean mSelectedFolder;
-
     private RecyclerView mImageListView;
     private List<ImageBean> mImageBeans;
     private RecycleViewAdapter<ImageBean> mImageAdapter;
-
     private boolean isSourceImage = false;
-
     private List<ImageBean> mSelectedImages = new ArrayList<>();
     private ImageBean mShowItem;
-
     private MyHandler mHandler = new MyHandler();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_selector);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         initView();
         initImageList();
         initPopupWindow();
@@ -96,6 +92,9 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
         mTvSend.setClickable(false);
     }
 
+    /**
+     * 初始化照片选择列表，使用 recycler view 显示
+     */
     private void initImageList() {
         mImageBeans = new ArrayList<>();
         mImageListView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -108,51 +107,54 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
 
             @Override
             public void bindView(RViewHolder holder, final int position) {
-                final ImageBean image = mImageBeans.get(position);
+                // 使用Glide加载照片，它有缓存策略，避免 OOM
+                final ImageBean item = mImageBeans.get(position);
                 ImageView imageView = holder.getImageView(R.id.iv_img);
                 Glide.with(PhotoSelectActivity.this)
-                        .load(image.getPath()).diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .load(item.getPath()).diskCacheStrategy(DiskCacheStrategy.ALL)
                         .error(R.drawable.bg_img_defalut)
                         .into(imageView);
 
+                // 单击照片本身，在预览窗口打开该照片
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mShowItem = image;
+                        mShowItem = item;
                         previewByItem();
                     }
                 });
 
-                final RadioButton status = (RadioButton) holder.getConvertView()
+                // 照片右上角的选择器，根据照片被选择与否显示不同状态 icon
+                final RadioButton radioButton = (RadioButton) holder.getConvertView()
                         .findViewById(R.id.img_sel_status);
-                status.setOnClickListener(new View.OnClickListener() {
+                radioButton.setChecked(item.isSelected());
+
+                // 选择框单击事件监听，用于更新照片选择状态
+                radioButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         ImageBean imageBean = mImageBeans.get(position);
                         if (imageBean.isSelected()) {
+                            radioButton.setChecked(false);
                             imageBean.setSelected(false);
                             mSelectedImages.remove(imageBean);
-                            mImageAdapter.notifyItemChanged(position);
                             updateBtnState();
                         } else if (mSelectedImages.size() < 9) {
+                            radioButton.setChecked(true);
                             imageBean.setSelected(true);
                             mSelectedImages.add(imageBean);
-                            mImageAdapter.notifyItemChanged(position);
                             updateBtnState();
                         } else {
-                            status.setChecked(false);
+                            radioButton.setChecked(false);
                             Toast.makeText(PhotoSelectActivity.this,
                                     "一次只能选择9张喔~",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-                status.setChecked(image.isSelected());
             }
         };
-
         mImageListView.setAdapter(mImageAdapter);
     }
-
 
     /**
      * 初始化 照片文件夹 选择器（popupWindow）
@@ -165,6 +167,14 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
         mFolderWindow = new PopupWindow(rootView, LinearLayout.LayoutParams.MATCH_PARENT, popupHeight);
         mFolderWindow.setOutsideTouchable(true);
         mFolderWindow.setFocusable(true);
+        mFolderWindow.setAnimationStyle(R.style.popup_window_anim);
+        // 在PopupWindow隐藏后，将背景恢复正常亮度
+        mFolderWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                lightOn();
+            }
+        });
 
         // 文件夹列表初始化
         mFolderBeans = new ArrayList<>();
@@ -214,7 +224,6 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
                     // 关闭弹窗并更新图片列表
                     updateImageList();
                 }
-
                 hidePopup();
             }
         });
@@ -245,7 +254,6 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
         });
     }
 
-
     @SuppressLint("HandlerLeak")
     private class MyHandler extends Handler {
         @Override
@@ -260,12 +268,18 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
         }
     }
 
+    /**
+     * 根据选择的文件夹，更新图片列表
+     */
     private void updateImageList() {
         mImageBeans.clear();
         mImageBeans.addAll(mSelectedFolder.getImageList());
         mImageAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * 根据选择照片的数量，更新 “发送” 和 “预览” 按钮的显示文字和可点击状态
+     */
     private void updateBtnState() {
         String size = String.valueOf(mSelectedImages.size());
         String tvSend = "发送(" + size + "/9)";
@@ -287,6 +301,7 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
             mTvPreview.setTextColor(getResources().getColor(R.color.colorAccent));
         }
     }
+
 
     @Override
     public void onClick(View v) {
@@ -314,17 +329,42 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
         }
     }
 
+    /**
+     * 显示和隐藏文件夹选择框 显示在底部布局之上
+     */
     private void showPopup() {
         int[] location = new int[2];
         mLayoutBottom.getLocationOnScreen(location);
         mFolderWindow.showAtLocation(mLayoutBottom, Gravity.NO_GRAVITY, location[0],
                 location[1] - mFolderWindow.getHeight());
+        lightOff();
     }
 
     private void hidePopup() {
         mFolderWindow.dismiss();
     }
 
+    /**
+     *  popupWindow 显示的时候 将图片列表区域变暗
+     *  popupWindow 隐藏的时候恢复
+     */
+
+    private void lightOn(){
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        attributes.alpha = 1.0f;
+        getWindow().setAttributes(attributes);
+    }
+
+    private void lightOff(){
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        attributes.alpha = 0.3f;
+        getWindow().setAttributes(attributes);
+    }
+
+
+    /**
+     * 单击单张图片时，调整到预览页面显示该图
+     */
     private void previewByItem(){
         Intent intent = new Intent(this,ImagePreviewActivity.class);
         intent.putExtra("FLAG",ImagePreviewActivity.FLAG_SHOW_ITEM);
@@ -332,13 +372,15 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
         startActivityForResult(intent,REQUEST_SHOW_ITEM);
     }
 
+    /**
+     * 单击“预览”按钮时，跳转到预览页面显示所有已选中的图片
+     */
     private void previewByBtn(){
         Intent intent = new Intent(this,ImagePreviewActivity.class);
         intent.putExtra("FLAG",ImagePreviewActivity.FLAG_SHOW_LIST);
         intent.putExtra("IMAGE_LIST", (Serializable) mSelectedImages);
         startActivityForResult(intent,REQUEST_SHOW_LIST);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -357,6 +399,9 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
         }
     }
 
+    /**
+     * 将已选文件的路径集返回给请求页面
+     */
     private void sendImage(){
         Intent intent = new Intent();
         String[] path = new String[mSelectedImages.size()];

@@ -1,11 +1,14 @@
 package com.ezreal.ezchat.activity;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.amap.api.services.core.LatLonPoint;
@@ -49,7 +52,7 @@ import butterknife.OnClick;
  */
 
 public class P2PChatActivity extends BaseActivity
-        implements ChatMsgHandler.OnLoadMsgListener,ChatInputLayout.OnInputLayoutListener {
+        implements ChatMsgHandler.OnLoadMsgListener, ChatInputLayout.OnInputLayoutListener {
 
     private static final String TAG = P2PChatActivity.class.getSimpleName();
 
@@ -87,7 +90,7 @@ public class P2PChatActivity extends BaseActivity
         ButterKnife.bind(this);
 
         mInputLayout.setLayoutListener(this);
-        mInputLayout.bindInputLayout(this,mRecyclerView);
+        mInputLayout.bindInputLayout(this, mRecyclerView);
 
         initMsgList();
         initListener();
@@ -155,7 +158,7 @@ public class P2PChatActivity extends BaseActivity
                         showAttachOnActivity(ShowImageActivity.class, message);
                         break;
                     case audio:
-                        playAudio(holder,message);
+                        playAudio(holder, message);
                         break;
                     case video:
                         showAttachOnActivity(ShowVideoActivity.class, message);
@@ -178,9 +181,9 @@ public class P2PChatActivity extends BaseActivity
 
 
     /*** 播放音频，并监听播放进度，更新页面动画 ***/
-    public void playAudio(final RViewHolder holder,final IMMessage message) {
+    public void playAudio(final RViewHolder holder, final IMMessage message) {
 
-        if (isAudioPlay){
+        if (isAudioPlay) {
             // 如果正在播放，那会先关闭当前播放
             AudioPlayManager.pause();
             AudioPlayManager.release();
@@ -188,13 +191,13 @@ public class P2PChatActivity extends BaseActivity
             isAudioPlay = false;
 
             // 如果关闭的是自己,那关闭后就停止执行下面的操作
-            if (message.getUuid().equals(mPlayId)){
+            if (message.getUuid().equals(mPlayId)) {
                 mPlayId = "";
                 return;
             }
         }
 
-        if (mAudioPlayHandler == null){
+        if (mAudioPlayHandler == null) {
             mAudioPlayHandler = new AudioPlayHandler();
         }
 
@@ -207,14 +210,14 @@ public class P2PChatActivity extends BaseActivity
         final ImageView imageView = holder.getImageView(R.id.iv_audio_sound);
         final boolean isLeft = message.getDirect() == MsgDirectionEnum.In;
 
-        AudioPlayManager.playAudio(this,audioAttachment.getPath(),
+        AudioPlayManager.playAudio(this, audioAttachment.getPath(),
                 new AudioPlayManager.OnPlayAudioListener() {
                     @Override
                     public void onPlay() {
                         // 启动播放动画
                         isAudioPlay = true;
                         mPlayId = message.getUuid();
-                        mAudioPlayHandler.startAudioAnim(imageView,isLeft);
+                        mAudioPlayHandler.startAudioAnim(imageView, isLeft);
                     }
 
                     @Override
@@ -235,7 +238,9 @@ public class P2PChatActivity extends BaseActivity
     }
 
 
-    /** 根据消息附件内容，跳转至相应界面显示附件 **/
+    /**
+     * 根据消息附件内容，跳转至相应界面显示附件
+     **/
     private void showAttachOnActivity(Class<?> activity, IMMessage message) {
         Intent intent = new Intent(this, activity);
         intent.putExtra("IMMessage", message);
@@ -245,6 +250,29 @@ public class P2PChatActivity extends BaseActivity
 
     /*** 初始化各类消息监听 *****/
     private void initListener() {
+
+        mRecyclerView.setOnTouchListener(new MyTouchListener());
+
+        final View decorView = getWindow().getDecorView();
+        decorView.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    private int previousKeyboardHeight = 0;
+                    @Override
+                    public void onGlobalLayout() {
+                        Rect rect = new Rect();
+                        getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+                        int displayHeight = rect.bottom;
+                        int height = decorView.getHeight();
+                        int keyboardHeight = height - displayHeight;
+                        if (previousKeyboardHeight != keyboardHeight) {
+                            boolean hide = (double) displayHeight / height > 0.8;
+                            if (!hide){
+                                mLayoutManager.scrollToPosition(mMsgList.size());
+                            }
+                        }
+                    }
+                });
+
         // 网易云信消息接收监听
         mMsgReceiveObserver = new Observer<List<IMMessage>>() {
             @Override
@@ -336,7 +364,7 @@ public class P2PChatActivity extends BaseActivity
     }
 
     @Override
-    public void loadSuccess(List<IMMessage> messages, IMMessage anchorMessage){
+    public void loadSuccess(List<IMMessage> messages, IMMessage anchorMessage) {
         mRecyclerView.hideHeadView();
 
         boolean scroll = false;
@@ -369,7 +397,7 @@ public class P2PChatActivity extends BaseActivity
         if (requestCode == SELECT_PHOTO) {
             if (resultCode == RESULT_OK) {
                 String[] images = data.getStringArrayExtra("images");
-                for (String path : images){
+                for (String path : images) {
                     sendMessage(mChatHandler.createImageMessage(path));
                 }
 
@@ -481,10 +509,29 @@ public class P2PChatActivity extends BaseActivity
         ToastUtils.showMessage(this, "录音出错:" + message);
     }
 
+    @Override
+    public void exLayoutShow() {
+        mLayoutManager.scrollToPosition(mMsgList.size());
+    }
+
     /***  标题栏返回按钮事件 *****/
 
     @OnClick(R.id.iv_back_btn)
     public void finishActivity() {
         this.finish();
     }
+
+
+    /******  消息列表触摸事件   *******/
+
+    private class MyTouchListener implements View.OnTouchListener {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                mInputLayout.hideOverView();
+            }
+            return false;
+        }
+    }
+
 }

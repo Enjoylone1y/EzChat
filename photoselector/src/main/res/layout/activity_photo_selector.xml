@@ -20,12 +20,13 @@
         <RelativeLayout
             android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             android:background="#7a8386"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:clickable="false">
 
             <TextView
                 android:id="@+id/tv_folder_name"
