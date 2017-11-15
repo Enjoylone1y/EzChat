@@ -68,4 +68,9 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
+    @OnClick(R.id.iv_back_btn)
+    private void clickBack(){
+        finish();
+    }
+
 }
