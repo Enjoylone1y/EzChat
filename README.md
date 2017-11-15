@@ -17,40 +17,32 @@ Emoji表情包控件:emojiLibrary
 
 APP 还有很多功能正在完善中~~
 
- APP 部分界面截图：
+APP 部分界面截图：
 
-注册
-![image](imges/register.png)
+注册                                        登陆
 
-登陆
-![image](imges/login.png)
+![image](imges/register.png)                ![image](imges/login.png)
 
-主页-联系人
-![image](imges/main_contract.png)
 
-主页-最近会话
-![image](imges/mian_recent.png)
+主页-联系人                                  主页-最近会话
+                                          
+![image](imges/main_contract.png)           ![image](imges/mian_recent.png)
 
-个人信息
-![image](imges/person_info.png)
 
-点对点聊天
-![image](imges/messge_list.png)
+个人信息                                      点对点聊天
 
-表情包控件
-![image](imges/layout_emoji.png)
+![image](imges/person_info.png)             ![image](imges/messge_list.png)
 
-聊天扩展
-![image](imges/layout_ex.png)
 
-位置信息发送
-![image](imges/layout_sel_loc.png)
+表情包控件                                    聊天扩展
 
-多图片选择
-![image](imges/image_selector.png)
+![image](imges/layout_emoji.png)            ![image](imges/layout_ex.png)
 
-点击拍照 长按录像
-![image](imges/camera.png)
 
-相机预览
-![image](imges/camera_preview.png)
+位置信息发送                                   多图片选择
+
+![image](imges/layout_sel_loc.png)           ![image](imges/image_selector.png)
+
+点击拍照 长按录像                               相机预览
+
+![image](imges/camera.png)                   ![image](imges/camera_preview.png)
