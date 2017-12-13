@@ -36,7 +36,8 @@ import butterknife.OnClick;
 
 public class ContractFragment extends BaseFragment {
 
-    private static final String TAG = ContractFragment.class.getSimpleName();
+    public static final int REQUEST_CHECK_NOTI = 0x5000;
+
     @BindView(R.id.rcv_friend)
     RecyclerView mRecyclerView;
     @BindView(R.id.dpv_unread_msg)
@@ -150,11 +151,22 @@ public class ContractFragment extends BaseFragment {
     @OnClick(R.id.layout_msg_notify)
     public void openMsgNotifyActivity(){
         hindUnReadMsgView();
-        startActivity(new Intent(getContext(), CheckNotifyListActivity.class));
+        startActivityForResult(new Intent(getContext(),
+                CheckNotifyListActivity.class),REQUEST_CHECK_NOTI);
     }
 
     @OnClick(R.id.layout_group_chat)
     public void openGroupListActivity(){
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CHECK_NOTI){
+            if (resultCode == CheckNotifyListActivity.RESULT_HAVE_CHANGE){
+                loadFriendList();
+            }
+        }
     }
 }

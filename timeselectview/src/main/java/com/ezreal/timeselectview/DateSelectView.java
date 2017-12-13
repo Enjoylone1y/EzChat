@@ -22,8 +22,6 @@ public class DateSelectView extends LinearLayout{
     private WheelView mWvMonth;
     private WheelView mWvDay;
 
-
-
     public DateSelectView(Context context) {
         this(context,null);
     }
@@ -33,12 +31,6 @@ public class DateSelectView extends LinearLayout{
         initView();
         initDate();
         initListener();
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-
     }
 
     private void initView(){

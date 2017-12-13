@@ -42,11 +42,13 @@ import butterknife.ButterKnife;
 
 public class CheckNotifyListActivity extends BaseActivity {
 
+    public static final int RESULT_HAVE_CHANGE = 0x4000;
     private static final int LOAD_MESSAGE_COUNT = 500;
     @BindView(R.id.rcv_notify_list)
     RecyclerView mRecyclerView;
     private List<AddFriendNotify> mNotifyInfoList;
     private RecycleViewAdapter<AddFriendNotify> mAdapter;
+    private boolean haveChange = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -217,6 +219,7 @@ public class CheckNotifyListActivity extends BaseActivity {
                         .setSystemMessageStatus(message.getMessageId(), status);
                 message.setStatus(status);
                 mAdapter.notifyDataSetChanged();
+                haveChange = true;
             }
 
             @Override
@@ -272,5 +275,12 @@ public class CheckNotifyListActivity extends BaseActivity {
         startActivity(intent);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (haveChange){
+            haveChange = false;
+            this.setResult(RESULT_HAVE_CHANGE);
+        }
+    }
 }
