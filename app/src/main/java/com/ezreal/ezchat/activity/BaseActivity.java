@@ -20,6 +20,7 @@ import com.suntek.commonlibrary.widget.SystemBarTintManager;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
     protected SystemBarTintManager mTintManager;
     protected ImageView mIvBack;
     protected ImageView mIvMenu;
