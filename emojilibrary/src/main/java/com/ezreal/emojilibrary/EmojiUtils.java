@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -191,7 +190,7 @@ public class EmojiUtils {
         createEmojiList();
     }
 
-    public static List<EmojiBean> getEmojiBeans(){
+    static List<EmojiBean> getEmojiBeans(){
         if (sEmojiBeans == null){
             createEmojiList();
         }
@@ -212,38 +211,47 @@ public class EmojiUtils {
 
     }
 
-
-    public static Bitmap decodeBitmapFromRes(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
-        // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+    /**
+     * 从 Resource 中读取 Emoji 表情
+     * @param res Resource
+     * @param resId Emoji'id in Resource
+     * @param reqWidth ImageView Width
+     * @param reqHeight ImageView Height
+     * @return Emoji with Bitmap
+     */
+    static Bitmap decodeBitmapFromRes(Resources res, int resId,
+                                      int reqWidth, int reqHeight) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(res, resId, options);
-        // 调用上面定义的方法计算inSampleSize值
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-        // 使用获取到的inSampleSize值再次解析图片
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);
     }
 
-    public static int calculateInSampleSize(BitmapFactory.Options options,
-                                            int reqWidth, int reqHeight) {
-        // 源图片的高度和宽度
+    /**
+     * 计算图片压缩比例
+     * @param options Bitmap Decode Option
+     * @param reqWidth ImageView Width
+     * @param reqHeight ImageView Height
+     * @return inSample Size value
+     */
+    private static int calculateInSampleSize(BitmapFactory.Options options,
+                                             int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
         if (height > reqHeight || width > reqWidth) {
-            // 计算出实际宽高和目标宽高的比率
             final int heightRatio = Math.round((float) height / (float) reqHeight);
             final int widthRatio = Math.round((float) width / (float) reqWidth);
-            // 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高
             // 一定都会大于等于目标的宽和高。
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
         return inSampleSize;
     }
 
-    public static int dip2px(Context context, float dipValue) {
+    // 单位转化
+    static int dip2px(Context context, float dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }

@@ -2,6 +2,7 @@ package com.ezreal.ezchat.camera;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.UriMatcher;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -131,6 +132,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
         initListener();
     }
+
 
     private void initListener(){
 
@@ -264,6 +266,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         mIvCamera.setImageResource(R.mipmap.record);
         mCameraView.startRecordingVideo();
         new Thread(mRecordRunnable).start();
+
+        UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
+
     }
 
 

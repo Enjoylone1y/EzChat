@@ -64,6 +64,17 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         mEtPassWord.setOnTouchListener(new MyTouchListener());
         initPermission();
+
+        String id = SharedPreferencesUtil.getStringSharedPreferences(this, Constant.LOCAL_LOGIN_TABLE,
+                Constant.LOCAL_USER_ACCOUNT);
+        String token =  SharedPreferencesUtil.getStringSharedPreferences(this, Constant.LOCAL_LOGIN_TABLE,
+                Constant.LOCAL_USER_TOKEN);
+        if (!TextUtils.isEmpty(id)){
+            mEtUserAccount.setText(id);
+            if (!TextUtils.isEmpty(token)){
+                mEtPassWord.setText(token);
+            }
+        }
     }
 
     /**
@@ -73,7 +84,8 @@ public class LoginActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             boolean has = PermissionUtils.checkPermissions(this, BASIC_PERMISSIONS);
             if (!has){
-                PermissionUtils.requestPermissions(this,PERMISSION_REQUEST_CODE,BASIC_PERMISSIONS);
+                PermissionUtils.requestPermissions(this,PERMISSION_REQUEST_CODE,
+                        BASIC_PERMISSIONS);
             }
         }
 

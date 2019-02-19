@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.activity.P2PChatActivity;
 import com.ezreal.ezchat.bean.RecentContactBean;
@@ -16,6 +17,7 @@ import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
+import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 import com.netease.nimlib.sdk.uinfo.UserService;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 import com.suntek.commonlibrary.adapter.OnItemClickListener;
@@ -36,7 +38,6 @@ public class RecentMsgFragment extends BaseFragment {
 
     private static final String TAG = RecentMsgFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private List<RecentContactBean> mContactList;
     private RecycleViewAdapter<RecentContactBean> mViewAdapter;
     private Observer<List<RecentContact>> mObserver;
@@ -59,9 +60,9 @@ public class RecentMsgFragment extends BaseFragment {
     }
 
     private void initRecyclerView(){
-        mLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mContactList = new ArrayList<>();
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
         mViewAdapter = new RecycleViewAdapter<RecentContactBean>(getContext(),mContactList) {
             @Override
             public int setItemLayoutId(int position) {
@@ -71,9 +72,18 @@ public class RecentMsgFragment extends BaseFragment {
             @Override
             public void bindView(RViewHolder holder, int position) {
                 RecentContactBean contactBean= mContactList.get(position);
-                holder.setImageByUrl(getContext(),R.id.iv_head_picture,
-                        contactBean.getUserInfo().getAvatar(),R.mipmap.bg_img_defalut);
-                holder.setText(R.id.tv_recent_name,contactBean.getUserInfo().getName());
+                UserInfoProvider.UserInfo userInfo = contactBean.getUserInfo();
+                if (userInfo == null){
+                    userInfo = getUserInfoByAccount(contactBean.getRecentContact().getFromAccount());
+                }
+                if (userInfo != null){
+                    mContactList.get(position).setUserInfo(userInfo);
+                    holder.setImageByUrl(getContext(),R.id.iv_head_picture,
+                            contactBean.getUserInfo().getAvatar(),R.mipmap.bg_img_defalut);
+                    holder.setText(R.id.tv_recent_name,contactBean.getUserInfo().getName());
+                }else {
+                    getUserInfoByAccount(contactBean.getRecentContact().getFromAccount());
+                }
                 holder.setText(R.id.tv_recent_content,contactBean.getRecentContact().getContent());
                 String time = mDateFormat.format(new Date(contactBean.getRecentContact().getTime()));
                 holder.setText(R.id.tv_recent_time,time);
@@ -179,6 +189,7 @@ public class RecentMsgFragment extends BaseFragment {
     }
 
     private NimUserInfo getUserInfoByAccount(String account){
+
         return NIMClient.getService(UserService.class).getUserInfo(account);
     }
 }

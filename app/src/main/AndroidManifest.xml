@@ -60,6 +60,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
 
         <activity
@@ -128,9 +133,14 @@
         <activity
             android:name=".activity.ShowImageActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ShowVideoActivity"/>
+
+        <activity android:name=".activity.ShowVideoActivity"
+            android:configChanges="orientation"/>
+
         <activity android:name=".activity.ShowLocActivity"/>
         <activity android:name=".activity.ChatSettingActivity"/>
+        <activity android:name=".activity.GroupListActivity"/>
+        <activity android:name=".activity.ChangePassActivity"/>
 
         <!--网易云通讯相关-->
 

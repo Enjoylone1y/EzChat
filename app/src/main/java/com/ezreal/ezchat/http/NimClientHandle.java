@@ -4,20 +4,16 @@ package com.ezreal.ezchat.http;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.ezreal.ezchat.ChatApplication;
 import com.ezreal.ezchat.utils.CheckSumUtils;
 import com.ezreal.ezchat.utils.Constant;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.uinfo.UserService;
-import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -27,6 +23,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 
 /**
@@ -69,7 +66,7 @@ public class NimClientHandle {
 
     public void register(String account, String token, String name, final OnRegisterListener listener) {
 
-        RequestBody body = new FormBody.Builder()
+        final RequestBody body = new FormBody.Builder()
                 .add("accid", account)
                 .add("token", token)
                 .add("name", name)
@@ -89,34 +86,89 @@ public class NimClientHandle {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-               if (listener != null){
-                   if (response.code() == 200){
-                       listener.onSuccess();
-                   }else {
-                       listener.onFailed(response.message());
-                   }
-               }
+
+                if (listener != null) {
+                    if (response.code() == 200) {
+                        Gson gson = new Gson();
+                        RegisterResp resp = gson.fromJson(response.body().string(),
+                                new TypeToken<RegisterResp>(){}.getType());
+                        if (resp == null){
+                            listener.onFailed("解析返回数据失败" + response.body().string());
+                            return;
+                        }
+                        if (resp.getCode() != 200){
+                            listener.onFailed(resp.getDesc());
+                            return;
+                        }
+                        listener.onSuccess();
+                    } else {
+                        listener.onFailed(response.message());
+                    }
+                }
             }
         });
+    }
 
+    public void updateToken(String account,String pass,final OnRegisterListener listener){
+        final RequestBody body = new FormBody.Builder()
+                .add("accid", account)
+                .add("token", pass)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(APP_SERVER_BASE_URL + mAppServerUserUpdate)
+                .headers(createHeaders())
+                .post(body)
+                .build();
+
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                listener.onFailed(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (listener != null) {
+                    if (response.code() == 200) {
+                        Gson gson = new Gson();
+                        RegisterResp resp = gson.fromJson(response.body().string(),
+                                new TypeToken<RegisterResp>(){}.getType());
+                        if (resp == null){
+                            listener.onFailed("解析返回数据失败" + response.body().string());
+                            return;
+                        }
+                        if (resp.getCode() != 200){
+                            listener.onFailed(resp.getDesc());
+                            return;
+                        }
+                        listener.onSuccess();
+                    } else {
+                        listener.onFailed(response.message());
+                    }
+                }
+            }
+        });
     }
 
 
     /**
      * 生成访问 NIM  APP-SERVICE 所要求的 HEADER
+     *
      * @return headers ,in OK HTTP3
      */
-    private Headers createHeaders(){
+    private Headers createHeaders() {
         String nonce = CheckSumUtils.getNonce();
         String time = String.valueOf(System.currentTimeMillis() / 1000L);
         return new Headers.Builder()
-                .add("Content-Type","application/x-www-form-urlencoded;charset=utf-8")
+                .add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
                 .add("AppKey", readAppKey())
                 .add("Nonce", nonce)
                 .add("CurTime", time)
                 .add("CheckSum", CheckSumUtils.getCheckSum(Constant.APP_SECURY, nonce, time))
                 .build();
     }
+
     /**
      * 读取存储于manifest文件下的 APP KEY
      *
