@@ -89,7 +89,7 @@ dependencies {
     implementation 'com.netease.nimlib:avchat:4.4.0'
     // 音视频需要
     implementation 'com.netease.nimlib:nrtc:4.4.0'
-    // 聊天室需要
+    // 聊天室需
     // compile 'com.netease.nimlib:chatroom:4.4.0'
     // 实时会话服务需要
     // compile 'com.netease.nimlib:rts:4.4.0'

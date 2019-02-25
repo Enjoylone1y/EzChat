@@ -15,6 +15,7 @@ import android.widget.Button;
  * Created by wudeng on 2017/9/6.
  */
 
+@SuppressLint("AppCompatCustomView")
 public class AudioRecordButton extends Button implements AudioRecordManager.OnAudioStateListener{
 
     private static final int STATE_NORMAL = 100001;
@@ -177,6 +178,7 @@ public class AudioRecordButton extends Button implements AudioRecordManager.OnAu
                 }
                 break;
             case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
                 // 未触发 longClick,直接重置
                 if (!isReady) {
                     reset();

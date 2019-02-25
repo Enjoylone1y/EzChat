@@ -1,6 +1,7 @@
 package com.ezreal.ezchat.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.ezreal.ezchat.activity.P2PChatActivity;
 import com.ezreal.ezchat.bean.RecentContactBean;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
@@ -43,11 +45,13 @@ public class RecentMsgFragment extends BaseFragment {
     private Observer<List<RecentContact>> mObserver;
     private SimpleDateFormat mDateFormat;
 
+
     @Override
     public int setLayoutID() {
         return R.layout.fragment_message;
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void initView(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.rcv_message_list);
@@ -55,8 +59,8 @@ public class RecentMsgFragment extends BaseFragment {
         initRecyclerView();
         initListener();
         loadRecentList();
-        NIMClient.getService(MsgServiceObserve.class).observeRecentContact(mObserver,true);
     }
+
 
     private void initRecyclerView(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -72,14 +76,14 @@ public class RecentMsgFragment extends BaseFragment {
             public void bindView(RViewHolder holder, int position) {
                 RecentContactBean contactBean= mContactList.get(position);
                 UserInfo userInfo = contactBean.getUserInfo();
-                if (userInfo == null){
-                    userInfo = getUserInfoByAccount(contactBean.getRecentContact().getFromAccount());
-                }
                 if (userInfo != null){
                     mContactList.get(position).setUserInfo(userInfo);
                     holder.setImageByUrl(getContext(),R.id.iv_head_picture,
                             contactBean.getUserInfo().getAvatar(),R.mipmap.bg_img_defalut);
                     holder.setText(R.id.tv_recent_name,contactBean.getUserInfo().getName());
+                }else {
+                    holder.setImageResource(R.id.iv_head_picture,R.mipmap.app_logo_main);
+                    holder.setText(R.id.tv_recent_name,contactBean.getRecentContact().getContactId());
                 }
                 holder.setText(R.id.tv_recent_content,contactBean.getRecentContact().getContent());
                 String time = mDateFormat.format(new Date(contactBean.getRecentContact().getTime()));
@@ -128,12 +132,22 @@ public class RecentMsgFragment extends BaseFragment {
                 bean.setRecentContact(contact);
                 mViewAdapter.notifyItemChanged(i);
                 break;
-            }else if (i == mContactList.size()-1){
+            }
+            if (i == mContactList.size()-1){
                 // 否则为新的最近会话
                 RecentContactBean newBean = new RecentContactBean();
                 newBean.setRecentContact(contact);
-                newBean.setUserInfo(getUserInfoByAccount(contact.getContactId()));
+                NimUserInfo userInfo = getUserInfoByAccount(contact.getContactId());
+                if (userInfo != null){
+                    newBean.setUserInfo(userInfo);
+                }else {
+                    List<String> a = new ArrayList<>();
+                    a.add(contact.getContactId());
+                    getUserInfoRemote(a);
+                }
                 mContactList.add(0,newBean);
+                mViewAdapter.notifyItemInserted(0);
+                break;
             }
         }
     }
@@ -142,50 +156,96 @@ public class RecentMsgFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         Log.e(TAG,"onResume");
+        NIMClient.getService(MsgServiceObserve.class).observeRecentContact(mObserver,true);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         Log.e(TAG,"onPause");
-
     }
 
     private void loadRecentList(){
         NIMClient.getService(MsgService.class).queryRecentContacts()
                 .setCallback(new RequestCallbackWrapper<List<RecentContact>>() {
-            @Override
-            public void onResult(int code, List<RecentContact> result, Throwable exception) {
-                if (exception != null){
-                    Log.e(TAG,"loadRecentList exception = " + exception.getMessage());
-                    return;
-                }
-                if (code != 200){
-                    Log.e(TAG,"loadRecentList error code = " + code);
-                    return;
-                }
-                Log.e(TAG,"loadRecentList size = " + result.size());
-                List<RecentContactBean> contactBeans = createContactBeans(result);
-                mContactList.clear();
-                mContactList.addAll(contactBeans);
-                mViewAdapter.notifyDataSetChanged();
-            }
-        });
+                    @Override
+                    public void onResult(int code, List<RecentContact> result, Throwable exception) {
+                        if (exception != null){
+                            Log.e(TAG,"loadRecentList exception = " + exception.getMessage());
+                            return;
+                        }
+                        if (code != 200){
+                            Log.e(TAG,"loadRecentList error code = " + code);
+                            return;
+                        }
+                        Log.e(TAG,"loadRecentList size = " + result.size());
+                        List<RecentContactBean> contactBeans = createContactBeans(result);
+                        mContactList.clear();
+                        mContactList.addAll(contactBeans);
+                        mViewAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private List<RecentContactBean> createContactBeans(List<RecentContact> recentContacts){
+        List<String> accounts = new ArrayList<>();
         List<RecentContactBean> beanList = new ArrayList<>();
         RecentContactBean bean;
         for (RecentContact contact : recentContacts){
             bean = new RecentContactBean();
             bean.setRecentContact(contact);
-            bean.setUserInfo(getUserInfoByAccount(contact.getContactId()));
+            NimUserInfo userInfo = getUserInfoByAccount(contact.getContactId());
+            if (userInfo != null){
+                bean.setUserInfo(userInfo);
+            }else {
+                accounts.add(contact.getContactId());
+            }
             beanList.add(bean);
+        }
+        if (!accounts.isEmpty()){
+            getUserInfoRemote(accounts);
         }
         return beanList;
     }
 
     private NimUserInfo getUserInfoByAccount(String account){
         return NIMClient.getService(UserService.class).getUserInfo(account);
+    }
+
+
+    private void getUserInfoRemote(List<String> accounts){
+        NIMClient.getService(UserService.class).fetchUserInfo(accounts)
+                .setCallback(new RequestCallback<List<NimUserInfo>>() {
+            @Override
+            public void onSuccess(List<NimUserInfo> param) {
+                updateView(param);
+            }
+
+            @Override
+            public void onFailed(int code) {
+
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+
+            }
+        });
+    }
+
+    private void updateView(List<NimUserInfo> param){
+        boolean isUpdate = false;
+        for (NimUserInfo userInfo : param){
+            for (RecentContactBean bean : mContactList){
+                if (userInfo.getAccount().equals(bean.getRecentContact().getContactId())){
+                    bean.setUserInfo(userInfo);
+                    isUpdate = true;
+                }
+            }
+        }
+        if (isUpdate && mViewAdapter != null){
+            mViewAdapter.notifyDataSetChanged();
+        }
+
     }
 }
