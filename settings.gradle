@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':swipeback', ':dragpointview', ':timeselectview', ':audiorecordbutton', ':emojilibrary', ':photoselector'
+include ':app', ':commonlibrary', ':dragpointview', ':timeselectview', ':audiorecordbutton', ':emojilibrary', ':photoselector'

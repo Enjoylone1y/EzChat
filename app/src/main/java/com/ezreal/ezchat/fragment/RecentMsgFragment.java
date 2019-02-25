@@ -17,9 +17,9 @@ import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
-import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 import com.netease.nimlib.sdk.uinfo.UserService;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
+import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.suntek.commonlibrary.adapter.OnItemClickListener;
 import com.suntek.commonlibrary.adapter.RViewHolder;
 import com.suntek.commonlibrary.adapter.RecycleViewAdapter;
@@ -51,7 +51,7 @@ public class RecentMsgFragment extends BaseFragment {
 
     @Override
     public void initView(View rootView) {
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rcv_message_list);
+        mRecyclerView = rootView.findViewById(R.id.rcv_message_list);
         mDateFormat = new SimpleDateFormat("HH:mm");
         initRecyclerView();
         initListener();
@@ -72,10 +72,7 @@ public class RecentMsgFragment extends BaseFragment {
             @Override
             public void bindView(RViewHolder holder, int position) {
                 RecentContactBean contactBean= mContactList.get(position);
-                UserInfoProvider.UserInfo userInfo = contactBean.getUserInfo();
-                if (userInfo == null){
-                    userInfo = getUserInfoByAccount(contactBean.getRecentContact().getFromAccount());
-                }
+                UserInfo userInfo = contactBean.getUserInfo();
                 if (userInfo != null){
                     mContactList.get(position).setUserInfo(userInfo);
                     holder.setImageByUrl(getContext(),R.id.iv_head_picture,

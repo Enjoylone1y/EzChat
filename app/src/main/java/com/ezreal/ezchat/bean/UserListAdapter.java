@@ -52,7 +52,7 @@ public class UserListAdapter extends BaseAdapter {
         if (convertView == null){
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.item_user, parent, false);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.image_view);
+            holder.imageView = convertView.findViewById(R.id.image_view);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();

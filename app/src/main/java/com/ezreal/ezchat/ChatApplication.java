@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Process;
 import android.os.StrictMode;
@@ -19,6 +20,9 @@ import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
+import com.netease.nimlib.sdk.uinfo.UserService;
+import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
+import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.suntek.commonlibrary.utils.FileUtils;
 import com.suntek.commonlibrary.utils.SharedPreferencesUtil;
 
@@ -65,32 +69,23 @@ public class ChatApplication extends Application {
         }
         options.sdkStorageRootPath = Constant.APP_CACHE_PATH;
 
+
         // 用户资料提供者, 目前主要用于提供用户资料，用于新消息通知栏中显示消息来源的头像和昵称
         options.userInfoProvider = new UserInfoProvider() {
             @Override
             public UserInfo getUserInfo(String account) {
-                return null;
+                return NIMClient.getService(UserService.class).getUserInfo(account);
             }
 
             @Override
-            public int getDefaultIconResId() {
-                return R.mipmap.app_logo_main;
+            public String getDisplayNameForMessageNotifier(String account,
+                                                           String sessionId, SessionTypeEnum sessionType) {
+                return account;
             }
 
             @Override
-            public Bitmap getAvatarForMessageNotifier(String account) {
-                return null;
-            }
-
-            @Override
-            public String getDisplayNameForMessageNotifier(String account, String sessionId,
-                                                           SessionTypeEnum sessionType) {
-               return account;
-            }
-
-            @Override
-            public Bitmap getTeamIcon(String tid) {
-                return null;
+            public Bitmap getAvatarForMessageNotifier(SessionTypeEnum sessionType, String sessionId) {
+                return BitmapFactory.decodeResource(getResources(),R.mipmap.app_logo_main);
             }
         };
 
