@@ -43,7 +43,6 @@ public class RecentMsgFragment extends BaseFragment {
     private Observer<List<RecentContact>> mObserver;
     private SimpleDateFormat mDateFormat;
 
-
     @Override
     public int setLayoutID() {
         return R.layout.fragment_message;
@@ -73,13 +72,14 @@ public class RecentMsgFragment extends BaseFragment {
             public void bindView(RViewHolder holder, int position) {
                 RecentContactBean contactBean= mContactList.get(position);
                 UserInfo userInfo = contactBean.getUserInfo();
+                if (userInfo == null){
+                    userInfo = getUserInfoByAccount(contactBean.getRecentContact().getFromAccount());
+                }
                 if (userInfo != null){
                     mContactList.get(position).setUserInfo(userInfo);
                     holder.setImageByUrl(getContext(),R.id.iv_head_picture,
                             contactBean.getUserInfo().getAvatar(),R.mipmap.bg_img_defalut);
                     holder.setText(R.id.tv_recent_name,contactBean.getUserInfo().getName());
-                }else {
-                    getUserInfoByAccount(contactBean.getRecentContact().getFromAccount());
                 }
                 holder.setText(R.id.tv_recent_content,contactBean.getRecentContact().getContent());
                 String time = mDateFormat.format(new Date(contactBean.getRecentContact().getTime()));
@@ -186,7 +186,6 @@ public class RecentMsgFragment extends BaseFragment {
     }
 
     private NimUserInfo getUserInfoByAccount(String account){
-
         return NIMClient.getService(UserService.class).getUserInfo(account);
     }
 }
