@@ -246,6 +246,5 @@ public class RecentMsgFragment extends BaseFragment {
         if (isUpdate && mViewAdapter != null){
             mViewAdapter.notifyDataSetChanged();
         }
-
     }
 }

@@ -8,14 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.amap.api.services.core.LatLonPoint;
 import com.ezreal.audiorecordbutton.AudioPlayManager;
-import com.ezreal.emojilibrary.ExpressLayout;
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.camera.CameraActivity;
 import com.ezreal.ezchat.chat.AudioPlayHandler;
@@ -141,7 +138,7 @@ public class P2PChatActivity extends BaseActivity
         mIvMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ToastUtils.showMessage(P2PChatActivity.this,"开发中");
             }
         });
     }
@@ -260,6 +257,7 @@ public class P2PChatActivity extends BaseActivity
         decorView.getViewTreeObserver()
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     private int previousKeyboardHeight = 0;
+
                     @Override
                     public void onGlobalLayout() {
                         Rect rect = new Rect();
@@ -269,7 +267,7 @@ public class P2PChatActivity extends BaseActivity
                         int keyboardHeight = height - displayHeight;
                         if (previousKeyboardHeight != keyboardHeight) {
                             boolean hide = (double) displayHeight / height > 0.8;
-                            if (!hide){
+                            if (!hide) {
                                 mLayoutManager.scrollToPosition(mMsgList.size());
                             }
                         }
