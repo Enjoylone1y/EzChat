@@ -1,11 +1,12 @@
 package com.suntek.commonlibrary.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public abstract class RecycleViewAdapter<T> extends RecyclerView.Adapter<RViewHo
     private LayoutInflater mInflater;
     private OnItemLongClickListener mLongClickListener;
     private OnItemClickListener mClickListener;
+
     public RecycleViewAdapter(Context context, List<T> data){
         this.mContext = context;
         this.mList = data;

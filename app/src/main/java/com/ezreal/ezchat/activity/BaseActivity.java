@@ -2,18 +2,18 @@ package com.ezreal.ezchat.activity;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.ezreal.ezchat.ChatApplication;
 import com.ezreal.ezchat.R;
-import com.suntek.commonlibrary.widget.SystemBarTintManager;
-
 
 /**
  * Created by wudeng on 2017/8/22.
@@ -21,23 +21,11 @@ import com.suntek.commonlibrary.widget.SystemBarTintManager;
 
 public class BaseActivity extends AppCompatActivity {
 
-    protected SystemBarTintManager mTintManager;
     protected ImageView mIvBack;
     protected ImageView mIvMenu;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            Window win = getWindow();
-            WindowManager.LayoutParams winParams = win.getAttributes();
-            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-            winParams.flags |= bits;
-            win.setAttributes(winParams);
-        }
-        mTintManager = new SystemBarTintManager(this);
-        mTintManager.setStatusBarTintEnabled(true);
-        // 默认透明
-        mTintManager.setStatusBarTintResource(android.R.color.transparent);
         ChatApplication.getInstance().addActivity(this);
     }
 
@@ -52,9 +40,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param color 颜色值 R.color.app_blue_color
      */
     protected void setStatusBarColor(int color){
-        if (mTintManager != null){
-            mTintManager.setStatusBarTintResource(color);
-        }
+
     }
 
     /**
@@ -65,10 +51,10 @@ public class BaseActivity extends AppCompatActivity {
      */
     protected void setTitleBar(String titleName, boolean showBackIcon,boolean showMenuIcon){
         try {
-            TextView title = (TextView) findViewById(R.id.tv_title);
+            TextView title =  findViewById(R.id.tv_title);
             title.setText(titleName);
-            mIvBack = (ImageView) findViewById(R.id.iv_back_btn);
-            mIvMenu = (ImageView) findViewById(R.id.iv_menu_btn);
+            mIvBack =  findViewById(R.id.iv_back_btn);
+            mIvMenu =  findViewById(R.id.iv_menu_btn);
             if (showBackIcon){
                 mIvBack.setVisibility(View.VISIBLE);
             }

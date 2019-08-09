@@ -11,6 +11,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.Queue;
  *
  * @author clifford
  */
-public class PinchImageView extends ImageView  {
+public class PinchImageView extends AppCompatImageView {
 
 
     ////////////////////////////////配置参数////////////////////////////////
@@ -1359,8 +1361,7 @@ public class PinchImageView extends ImageView  {
          * 如果不归还,让然会发生内存抖动,但不会引起泄漏.
          *
          * @return 可用的对象
-         *
-         * @see #given(Object)
+
          */
         public T take() {
             //如果池内为空就创建一个

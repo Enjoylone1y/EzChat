@@ -31,4 +31,6 @@ public class Constant {
 
     public static final String APP_CACHE_IMAGE = Constant.APP_CACHE_PATH + File.separator + "image";
 
+    public static final String APP_CACHE_VIDEO = Constant.APP_CACHE_PATH + File.separator + "video";
+
 }

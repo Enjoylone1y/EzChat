@@ -8,8 +8,10 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Process;
 import android.os.StrictMode;
-import android.support.multidex.MultiDex;
+
 import android.text.TextUtils;
+
+import androidx.multidex.MultiDex;
 
 import com.ezreal.ezchat.activity.MainActivity;
 import com.ezreal.ezchat.handler.NimUserHandler;

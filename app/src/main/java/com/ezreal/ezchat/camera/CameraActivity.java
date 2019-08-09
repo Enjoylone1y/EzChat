@@ -2,33 +2,47 @@ package com.ezreal.ezchat.camera;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.UriMatcher;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
+import android.graphics.PointF;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.utils.Constant;
-import com.flurgle.camerakit.CameraKit;
-import com.flurgle.camerakit.CameraListener;
-import com.flurgle.camerakit.CameraView;
-import com.suntek.commonlibrary.utils.ImageUtils;
-import com.suntek.commonlibrary.utils.ToastUtils;
+
+import com.otaliastudios.cameraview.CameraException;
+import com.otaliastudios.cameraview.CameraListener;
+import com.otaliastudios.cameraview.CameraOptions;
+import com.otaliastudios.cameraview.CameraView;
+import com.otaliastudios.cameraview.FileCallback;
+import com.otaliastudios.cameraview.PictureResult;
+import com.otaliastudios.cameraview.VideoResult;
+import com.otaliastudios.cameraview.controls.Facing;
+import com.otaliastudios.cameraview.controls.Flash;
+import com.otaliastudios.cameraview.controls.Grid;
+import com.otaliastudios.cameraview.controls.Mode;
+import com.otaliastudios.cameraview.controls.VideoCodec;
+import com.otaliastudios.cameraview.size.SizeSelectors;
+import com.otaliastudios.cameraview.video.encoding.MediaEncoderEngine;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,15 +76,15 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.tv_tip)
     TextView mTvTip;
 
-    private static final int[] FLASH_OPTIONS = {
-            CameraKit.Constants.FLASH_OFF,
-            CameraKit.Constants.FLASH_ON,
-            CameraKit.Constants.FLASH_AUTO
+    private static final Flash[] FLASH_OPTIONS = {
+            Flash.OFF,
+            Flash.ON,
+            Flash.AUTO
     };
 
-    private static final int[] FACE_OPTIONS = {
-            CameraKit.Constants.FACING_BACK,
-            CameraKit.Constants.FACING_FRONT,
+    private static final Facing[] FACE_OPTIONS = {
+            Facing.BACK,
+            Facing.FRONT
     };
 
     private static final int[] FLASH_ICONS = {
@@ -130,10 +144,16 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
         ButterKnife.bind(this);
 
+        mCameraView.setVideoCodec(VideoCodec.H_264);
+        mCameraView.setGrid(Grid.DRAW_PHI);
+        mCameraView.setPlaySounds(false);
+        mCameraView.setVideoBitRate(48000);
+
         initListener();
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initListener(){
 
         mIvCamera.setOnClickListener(this);
@@ -166,42 +186,94 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        mCameraView.setCameraListener(new CameraListener() {
-            @Override
-            public void onPictureTaken(byte[] jpeg) {
-                super.onPictureTaken(jpeg);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length);
-                if (bitmap != null){
-                    try {
-                        // 已限制只能竖屏拍照，若宽度比高度大，则说明发生了旋转
-                        if (bitmap.getWidth() > bitmap.getHeight()){
-                            bitmap = ImageUtils.rotateBitmapByDegree(bitmap,90);
-                        }
-                        mImagePath = Constant.APP_CACHE_IMAGE
-                                + File.separator + System.currentTimeMillis()+".jpeg";
-                        ImageUtils.saveBitmap2Jpg(bitmap,mImagePath);
-                        Intent intent = new Intent(CameraActivity.this,CameraResultActivity.class);
-                        intent.putExtra("imagePath",mImagePath);
-                        intent.putExtra("FLAG",CameraResultActivity.FLAG_SHOW_IMG);
-                        startActivityForResult(intent,REQUEST_SHOW_IMG);
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        mCameraView.addCameraListener(new CameraListener() {
+            @Override
+            public void onCameraOpened(@NonNull CameraOptions options) {
+                super.onCameraOpened(options);
+
+            }
+
+            @Override
+            public void onCameraClosed() {
+                super.onCameraClosed();
+                Log.i(TAG,"Camera Close");
+            }
+
+            @Override
+            public void onCameraError(@NonNull CameraException exception) {
+                super.onCameraError(exception);
+                Log.e(TAG,"Camera Exception :" + exception.getMessage());
+                Toast.makeText(CameraActivity.this,
+                        "抱歉，相机出了点问题，请稍后重试",Toast.LENGTH_LONG).show();
+                if (isRecording){
+                    startRecord();
                 }
             }
 
             @Override
-            public void onVideoTaken(File video) {
-                super.onVideoTaken(video);
-                if (video != null){
-                    mVideoPath = video.getAbsolutePath();
-                    Intent intent = new Intent(CameraActivity.this,
-                            CameraResultActivity.class);
-                    intent.putExtra("videoPath",video.getAbsolutePath());
-                    intent.putExtra("FLAG",CameraResultActivity.FLAG_SHOW_VIDEO);
-                    startActivityForResult(intent,REQUEST_SHOW_VIDEO);
-                }
+            public void onPictureTaken(@NonNull PictureResult result) {
+                super.onPictureTaken(result);
+                mImagePath = Constant.APP_CACHE_IMAGE
+                        + File.separator + System.currentTimeMillis()+".jpeg";
+                result.toFile(new File(mImagePath), new FileCallback() {
+                    @Override
+                    public void onFileReady(File file) {
+                        Intent intent = new Intent(CameraActivity.this,CameraResultActivity.class);
+                        intent.putExtra("imagePath",mImagePath);
+                        intent.putExtra("FLAG",CameraResultActivity.FLAG_SHOW_IMG);
+                        startActivityForResult(intent,REQUEST_SHOW_IMG);
+                    }
+                });
+            }
+
+            @Override
+            public void onVideoTaken(@NonNull VideoResult result) {
+                super.onVideoTaken(result);
+                Intent intent = new Intent(CameraActivity.this,
+                        CameraResultActivity.class);
+                intent.putExtra("videoPath",mVideoPath);
+                intent.putExtra("FLAG",CameraResultActivity.FLAG_SHOW_VIDEO);
+                startActivityForResult(intent,REQUEST_SHOW_VIDEO);
+            }
+
+
+            @Override
+            public void onVideoRecordingStart() {
+                super.onVideoRecordingStart();
+                Log.i(TAG,"onVideoRecordingStart");
+            }
+
+
+            @Override
+            public void onVideoRecordingEnd() {
+                super.onVideoRecordingEnd();
+                Log.i(TAG,"onVideoRecordingEnd");
+            }
+
+            @Override
+            public void onOrientationChanged(int orientation) {
+                super.onOrientationChanged(orientation);
+            }
+
+            @Override
+            public void onAutoFocusStart(PointF point) {
+                super.onAutoFocusStart(point);
+            }
+
+            @Override
+            public void onAutoFocusEnd(boolean successful, PointF point) {
+                super.onAutoFocusEnd(successful, point);
+            }
+
+            @Override
+            public void onZoomChanged(float newValue,float[] bounds, PointF[] fingers) {
+                super.onZoomChanged(newValue, bounds, fingers);
+            }
+
+            @Override
+            public void onExposureCorrectionChanged(float newValue, float[] bounds, PointF[] fingers) {
+                super.onExposureCorrectionChanged(newValue, bounds, fingers);
             }
         });
 
@@ -241,7 +313,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_camera_btn:
-                mCameraView.captureImage();
+                mCameraView.takePicture();
                 break;
             case R.id.iv_flash_status:
                 mCurrentFlash = (mCurrentFlash + 1) % FLASH_OPTIONS.length;
@@ -259,21 +331,22 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void startRecord(){
+        mVideoPath = Constant.APP_CACHE_VIDEO + File.separator +  System.currentTimeMillis() + ".mp4";
+        File file = new File(mVideoPath);
+        isRecording = true;
+        mCameraView.setMode(Mode.VIDEO);
+        mCameraView.takeVideo(file);
         mProgressBar.setProgress(0);
         mProgressBar.setVisibility(View.VISIBLE);
         mTvTip.setVisibility(View.INVISIBLE);
-        isRecording = true;
         mIvCamera.setImageResource(R.mipmap.record);
-        mCameraView.startRecordingVideo();
         new Thread(mRecordRunnable).start();
-
-        UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-
     }
 
 
     private void stopRecord(){
-        mCameraView.stopRecordingVideo();
+        mCameraView.stopVideo();
+        mCameraView.setMode(Mode.PICTURE);
         mRecordTime = 0;
         isRecording = false;
         mIvCamera.setImageResource(R.mipmap.capture);
@@ -285,12 +358,12 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        mCameraView.start();
+        mCameraView.open();
     }
 
     @Override
     protected void onPause() {
-        mCameraView.stop();
+        mCameraView.close();
         super.onPause();
     }
 
@@ -298,6 +371,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     protected void onDestroy() {
         mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
+        mCameraView.destroy();
     }
 
 }

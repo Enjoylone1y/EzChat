@@ -3,10 +3,12 @@ package com.ezreal.ezchat.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.activity.P2PChatActivity;

@@ -7,8 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,6 +16,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.bean.LocalAccountBean;

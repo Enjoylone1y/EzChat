@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
+
 import android.text.util.Linkify;
 import android.util.SparseArray;
 import android.view.View;
@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -124,15 +126,7 @@ public class RViewHolder extends RecyclerView.ViewHolder{
 
     @SuppressLint("NewApi")
     public void setAlpha(int viewId, float value) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            getView(viewId).setAlpha(value);
-        } else {
-            // Pre-honeycomb hack to set Alpha value
-            AlphaAnimation alpha = new AlphaAnimation(value, value);
-            alpha.setDuration(0);
-            alpha.setFillAfter(true);
-            getView(viewId).startAnimation(alpha);
-        }
+        getView(viewId).setAlpha(value);
     }
 
     public void setVisible(int viewId, boolean visible) {

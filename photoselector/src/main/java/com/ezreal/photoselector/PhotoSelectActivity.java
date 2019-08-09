@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +18,11 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -70,14 +72,14 @@ public class PhotoSelectActivity extends Activity implements View.OnClickListene
     }
 
     private void initView() {
-        mImageListView = (RecyclerView) findViewById(R.id.recycler_view);
-        mBtnSource = (RadioButton) findViewById(R.id.btn_source_img);
-        mTvFolderName = (TextView) findViewById(R.id.tv_folder_name);
-        mTvPreview = (TextView) findViewById(R.id.tv_preview);
-        mIvBack = (ImageView) findViewById(R.id.iv_back);
-        mTvSend = (TextView) findViewById(R.id.tv_send);
+        mImageListView = findViewById(R.id.recycler_view);
+        mBtnSource =  findViewById(R.id.btn_source_img);
+        mTvFolderName = findViewById(R.id.tv_folder_name);
+        mTvPreview =  findViewById(R.id.tv_preview);
+        mIvBack =  findViewById(R.id.iv_back);
+        mTvSend =  findViewById(R.id.tv_send);
 
-        mLayoutBottom = (RelativeLayout) findViewById(R.id.layout_bottom);
+        mLayoutBottom =  findViewById(R.id.layout_bottom);
 
         mIvBack.setOnClickListener(this);
         mTvSend.setOnClickListener(this);

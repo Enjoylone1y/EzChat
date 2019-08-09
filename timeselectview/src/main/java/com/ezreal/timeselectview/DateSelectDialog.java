@@ -1,17 +1,17 @@
 package com.ezreal.timeselectview;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
+
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by wudeng on 2017/8/9.
@@ -49,11 +49,11 @@ public class DateSelectDialog extends AlertDialog {
     }
 
     private void initView(){
-        mIvCancel = (ImageView) findViewById(R.id.iv_cancel);
-        mDsvStartTime = (DateSelectView) findViewById(R.id.dsv_start_time);
-        mDsvEndTime = (DateSelectView) findViewById(R.id.dsv_end_time);
-        mTvSelectAll = (TextView) findViewById(R.id.tv_select_all);
-        mTvConfirm = (TextView) findViewById(R.id.tv_confirm);
+        mIvCancel =  findViewById(R.id.iv_cancel);
+        mDsvStartTime =  findViewById(R.id.dsv_start_time);
+        mDsvEndTime =  findViewById(R.id.dsv_end_time);
+        mTvSelectAll = findViewById(R.id.tv_select_all);
+        mTvConfirm =  findViewById(R.id.tv_confirm);
     }
 
     private void initListener(){

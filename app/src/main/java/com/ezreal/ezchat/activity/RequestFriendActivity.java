@@ -1,8 +1,10 @@
 package com.ezreal.ezchat.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import android.widget.EditText;
+
+import androidx.annotation.Nullable;
 
 import com.ezreal.ezchat.R;
 import com.netease.nimlib.sdk.InvocationFuture;

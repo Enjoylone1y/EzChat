@@ -5,13 +5,14 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.fragment.BaseFragment;
@@ -38,7 +39,7 @@ import butterknife.ButterKnife;
 
 
 public class MainActivity extends BaseActivity implements OnClickListener,
-        OnPageChangeListener {
+        ViewPager.OnPageChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 

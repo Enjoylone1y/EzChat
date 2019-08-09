@@ -3,12 +3,7 @@ package com.ezreal.ezchat.chat;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaMetadataRetriever;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.LruCache;
-import android.util.TypedValue;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.ezreal.emojilibrary.EmojiUtils;
 import com.ezreal.ezchat.R;
 
 import com.ezreal.ezchat.activity.FriendInfoActivity;
-import com.ezreal.ezchat.activity.ShowImageActivity;
-import com.ezreal.ezchat.activity.ShowLocActivity;
-import com.ezreal.ezchat.activity.ShowVideoActivity;
-import com.ezreal.ezchat.bean.LocationPoint;
-import com.ezreal.ezchat.utils.ConvertUtils;
+
 import com.joooonho.SelectableRoundedImageView;
 import com.netease.nimlib.sdk.msg.attachment.AudioAttachment;
 import com.netease.nimlib.sdk.msg.attachment.FileAttachment;

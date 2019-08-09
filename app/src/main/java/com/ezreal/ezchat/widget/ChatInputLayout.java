@@ -2,7 +2,7 @@ package com.ezreal.ezchat.widget;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.Nullable;
+
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.ezreal.audiorecordbutton.AudioRecordButton;
 import com.ezreal.emojilibrary.EmojiBean;

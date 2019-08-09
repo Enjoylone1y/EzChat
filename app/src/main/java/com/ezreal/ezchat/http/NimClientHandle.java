@@ -3,8 +3,9 @@ package com.ezreal.ezchat.http;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.util.Log;
+
+
+import androidx.annotation.NonNull;
 
 import com.ezreal.ezchat.ChatApplication;
 import com.ezreal.ezchat.utils.CheckSumUtils;

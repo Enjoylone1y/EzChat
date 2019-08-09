@@ -1,6 +1,5 @@
 package com.ezreal.ezchat.handler;
 
-import android.util.Log;
 
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;

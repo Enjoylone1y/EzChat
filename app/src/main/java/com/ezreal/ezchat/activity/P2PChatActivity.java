@@ -3,13 +3,15 @@ package com.ezreal.ezchat.activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.amap.api.services.core.LatLonPoint;
 import com.ezreal.audiorecordbutton.AudioPlayManager;

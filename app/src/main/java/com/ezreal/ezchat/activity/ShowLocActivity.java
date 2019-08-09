@@ -1,8 +1,10 @@
 package com.ezreal.ezchat.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;

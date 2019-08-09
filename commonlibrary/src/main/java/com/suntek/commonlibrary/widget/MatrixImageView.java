@@ -11,12 +11,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
  * 手势缩放拖动 imageView
  * Created by wudeng on 2017/10/25.
  */
 
-public class MatrixImageView extends ImageView {
+public class MatrixImageView extends AppCompatImageView {
 
     private GestureDetector mGestureDetector;
     /**  模板Matrix，用以初始化 */

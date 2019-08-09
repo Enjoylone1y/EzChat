@@ -1,7 +1,8 @@
 package com.ezreal.ezchat.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.ezreal.ezchat.R;
 

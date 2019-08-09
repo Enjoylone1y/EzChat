@@ -6,8 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,6 +14,9 @@ import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.ezreal.ezchat.R;
 import com.netease.nimlib.sdk.NIMClient;
