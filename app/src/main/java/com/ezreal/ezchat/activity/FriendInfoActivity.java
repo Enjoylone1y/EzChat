@@ -74,7 +74,7 @@ public class FriendInfoActivity extends BaseActivity {
 
         mNimUserInfo = (NimUserInfo) intent.getSerializableExtra("NimUserInfo");
         if (mNimUserInfo != null){
-            ImageUtils.setImageByUrl(this,mHeadImg,mNimUserInfo.getAvatar(),R.mipmap.app_logo_main);
+            ImageUtils.setImageByUrl(this,mHeadImg,mNimUserInfo.getAvatar(),R.mipmap.app_logo);
             if (mNimUserInfo.getGenderEnum() == GenderEnum.FEMALE){
                 mIvPersonSex.setImageResource(R.mipmap.ic_woman);
             }else if (mNimUserInfo.getGenderEnum() == GenderEnum.MALE){

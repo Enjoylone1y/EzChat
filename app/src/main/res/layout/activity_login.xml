@@ -1,140 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@drawable/splash"
-    android:orientation="vertical">
+    android:background="@drawable/img_login_back">
 
-    <com.joooonho.SelectableRoundedImageView
-        android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:sriv_left_top_corner_radius="20dp"
-        app:sriv_left_bottom_corner_radius="20dp"
-        app:sriv_right_bottom_corner_radius="20dp"
-        app:sriv_right_top_corner_radius="20dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="58dp"
-        android:src="@mipmap/app_logo_white"/>
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="40dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_centerInParent="true"
+        android:visibility="visible">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@mipmap/icon_user_account" />
-
-        <EditText
-            android:id="@+id/et_user_account"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:background="@null"
-            android:hint="请输入账号"
-            android:digits="@string/digits"
-            android:inputType="textEmailAddress"
-            android:textColor="@android:color/white"
-            android:textColorHint="@color/white_color"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/login_background"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="20dp"
+            >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginRight="38dp"
-        android:layout_marginTop="7dp"
-        android:background="@color/hint_color" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22sp" />
 
-    <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:hint="请输入账号"
+                android:orientation="horizontal"
+                android:theme="@style/InputLayout_Login"
+                app:hintTextAppearance="@style/InputLayout_Login">
+
+                <EditText
+                    android:id="@+id/et_user_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/digits"
+                    android:inputType="text"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:hint="请输入密码"
+                android:theme="@style/InputLayout_Login"
+                app:hintTextAppearance="@style/InputLayout_Login"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/et_pass_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/digits"
+                    android:inputType="textPassword"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/tv_btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="38dp"
+                android:layout_marginTop="46dp"
+                android:layout_marginRight="38dp"
+                android:background="@drawable/login_nol_bg"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="@color/white_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_register"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/floating_normal"
+            android:src="@mipmap/ic_register"
+            app:fabCustomSize="50dp"
+            app:rippleColor="@color/colorPrimary"
+            app:borderWidth="0dp"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/layout_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:layout_marginLeft="40dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_centerInParent="true"
+        android:visibility="invisible">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@mipmap/icon_pass_word" />
-
-        <EditText
-            android:id="@+id/et_pass_word"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:background="@null"
-            android:hint="请输入密码"
-            android:digits="@string/digits"
-            android:inputType="textPassword"
-            android:textColor="@android:color/white"
-            android:textColorHint="@color/white_color"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/login_background"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="20dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginRight="38dp"
-        android:layout_marginTop="7dp"
-        android:background="@color/hint_color" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/tv_btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="38dp"
-        android:layout_marginRight="38dp"
-        android:layout_marginTop="46dp"
-        android:gravity="center"
-        android:background="@drawable/login_nol_bg"
-        android:text="@string/login"
-        android:textColor="#1A8ECB"
-        android:textSize="16sp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:hint="请输入账号"
+                android:orientation="horizontal"
+                android:theme="@style/InputLayout_Login"
+                app:hintTextAppearance="@style/InputLayout_Login">
 
-    <TextView
-        android:id="@+id/tv_btn_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:paddingTop="20dp"
-        android:text="@string/register_tip"
-        android:textColor="@color/white_color"
-        android:textSize="14sp"/>
+                <EditText
+                    android:id="@+id/et_register_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/digits"
+                    android:inputType="text"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <View
-        android:layout_width="120dp"
-        android:layout_height="0.8dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/white_color" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:hint="请输入昵称"
+                android:orientation="horizontal"
+                android:theme="@style/InputLayout_Login"
+                app:hintTextAppearance="@style/InputLayout_Login">
+
+                <EditText
+                    android:id="@+id/et_register_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/digits"
+                    android:inputType="text"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:hint="请输入密码"
+                android:theme="@style/InputLayout_Login"
+                app:hintTextAppearance="@style/InputLayout_Login"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/et_register_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/digits"
+                    android:inputType="textPassword"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:hint="确认密码"
+                android:theme="@style/InputLayout_Login"
+                app:hintTextAppearance="@style/InputLayout_Login"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/et_register_confirm_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/digits"
+                    android:inputType="textPassword"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="38dp"
+                android:layout_marginTop="46dp"
+                android:layout_marginRight="38dp"
+                android:background="@drawable/login_nol_bg"
+                android:gravity="center"
+                android:text="@string/register"
+                android:textColor="@color/white_color"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_close"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/floating_normal"
+            android:src="@mipmap/ic_close_w"
+            app:fabCustomSize="50dp"
+            app:rippleColor="@color/colorPrimary" />
+
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="6dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="6dp"
-            android:textColor="@color/app_blue_color"
-            android:text="@string/app_version"/>
+            android:text="@string/app_version"
+            android:textColor="@color/white_color" />
     </RelativeLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

@@ -27,8 +27,7 @@
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
                 app:sriv_oval="true"
-                android:scaleType="fitXY"
-                android:src="@mipmap/app_logo_main"/>
+                android:scaleType="fitXY" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

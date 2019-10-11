@@ -43,7 +43,6 @@
                 android:layout_width="70dp"
                 android:scaleType="fitXY"
                 app:sriv_oval="true"
-                android:src="@mipmap/app_logo_main"
                 android:layout_height="70dp"/>
         </RelativeLayout>
         <View

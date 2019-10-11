@@ -7,4 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="InputLayout_Login" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColor">@color/black_color</item>
+        <item name="android:textColorHint">@color/gray_color</item>
+        <item name="android:colorControlNormal">@color/gray_color</item>
+        <item name="android:colorControlActivated">@color/colorPrimary</item>
+        <item name="android:colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
 </resources>

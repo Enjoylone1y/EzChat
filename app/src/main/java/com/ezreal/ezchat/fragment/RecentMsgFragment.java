@@ -84,7 +84,7 @@ public class RecentMsgFragment extends BaseFragment {
                             contactBean.getUserInfo().getAvatar(),R.mipmap.bg_img_defalut);
                     holder.setText(R.id.tv_recent_name,contactBean.getUserInfo().getName());
                 }else {
-                    holder.setImageResource(R.id.iv_head_picture,R.mipmap.app_logo_main);
+                    holder.setImageResource(R.id.iv_head_picture,R.mipmap.app_logo);
                     holder.setText(R.id.tv_recent_name,contactBean.getRecentContact().getContactId());
                 }
                 holder.setText(R.id.tv_recent_content,contactBean.getRecentContact().getContent());

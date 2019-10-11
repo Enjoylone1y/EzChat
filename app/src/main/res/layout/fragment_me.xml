@@ -25,8 +25,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             app:sriv_oval="true"
-            android:scaleType="fitXY"
-            android:src="@mipmap/app_logo_main"/>
+            android:scaleType="fitXY" />
 
         <RelativeLayout
             android:layout_marginLeft="10dp"

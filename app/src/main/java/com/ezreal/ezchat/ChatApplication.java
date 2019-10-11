@@ -87,7 +87,7 @@ public class ChatApplication extends Application {
 
             @Override
             public Bitmap getAvatarForMessageNotifier(SessionTypeEnum sessionType, String sessionId) {
-                return BitmapFactory.decodeResource(getResources(),R.mipmap.app_logo_main);
+                return BitmapFactory.decodeResource(getResources(),R.mipmap.app_logo);
             }
         };
 

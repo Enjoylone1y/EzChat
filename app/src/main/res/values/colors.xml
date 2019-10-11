@@ -16,4 +16,5 @@
     <color name="interval_color">#e7e5e5</color>
     <color name="tr_black_color">#77616060</color>
     <color name="p2p_back_color">#91bcd3e4</color>
+    <color name="floating_normal">#0D8DEE</color>
 </resources>

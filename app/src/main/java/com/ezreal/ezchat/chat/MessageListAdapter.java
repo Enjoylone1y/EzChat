@@ -111,7 +111,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RViewHolder> {
         if (message.getDirect() == MsgDirectionEnum.In) {
 
             ImageUtils.setImageByUrl(mContext, headView, mChatSession.getChatInfo().getAvatar(),
-                    R.mipmap.app_logo_main);
+                    R.mipmap.app_logo);
 
             // 设置好友头像点击事件--打开好友信息界面
             headView.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RViewHolder> {
 
         } else {
             ImageUtils.setImageByUrl(mContext, headView, mChatSession.getMyInfo().getAvatar(),
-                    R.mipmap.app_logo_main);
+                    R.mipmap.app_logo);
         }
 
         // 根据消息状态和附件传输状态决定是否显示progress bar

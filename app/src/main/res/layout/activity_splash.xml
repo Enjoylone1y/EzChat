@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splash"
+        android:src="@drawable/img_login_back"
         android:scaleType="fitXY"/>
 
 </RelativeLayout>

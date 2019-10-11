@@ -76,7 +76,7 @@ public class MeFragment extends BaseFragment {
         LocalAccountBean accountBean = NimUserHandler.getInstance().getLocalAccount();
         if (accountBean != null){
             ImageUtils.setImageByUrl(getContext(),mHeadView,
-                    accountBean.getHeadImgUrl(),R.mipmap.app_logo_main);
+                    accountBean.getHeadImgUrl(),R.mipmap.app_logo);
             mTvName.setText(accountBean.getNick());
             mTvAccount.setText(accountBean.getAccount());
         }
