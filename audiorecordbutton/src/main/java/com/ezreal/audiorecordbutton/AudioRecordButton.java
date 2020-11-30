@@ -10,6 +10,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 
 /**
  * Created by wudeng on 2017/9/6.
@@ -39,6 +42,8 @@ public class AudioRecordButton extends Button implements AudioRecordManager.OnAu
     private OnRecordingListener mRecordingListener;
     private String mAudioFilePath;
     private boolean hasInit = false;
+
+    private Executor mExecutor = null;
 
     public AudioRecordButton(Context context) {
         this(context, null);
@@ -80,6 +85,8 @@ public class AudioRecordButton extends Button implements AudioRecordManager.OnAu
 
         mAudioRecordManager.setAudioStateListener(this);
 
+        mExecutor = Executors.newCachedThreadPool();
+
         // 设置按钮长按事件监听，只有触发长按才开始准备录音
         setOnLongClickListener(new OnLongClickListener() {
             @Override
@@ -102,7 +109,7 @@ public class AudioRecordButton extends Button implements AudioRecordManager.OnAu
     }
 
     // 子线程 runnable，每隔0.1秒获取音量大小，并记录录音时间
-    private Runnable mGetVoiceLevelRunnable = new Runnable() {
+    private final Runnable mGetVoiceLevelRunnable = new Runnable() {
         @Override
         public void run() {
             while (isRecording) {
@@ -119,7 +126,8 @@ public class AudioRecordButton extends Button implements AudioRecordManager.OnAu
 
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
+
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -130,7 +138,7 @@ public class AudioRecordButton extends Button implements AudioRecordManager.OnAu
                     isRecording = true;
                     mDialogManager.showDialogRecord();
                     // 启动线程，每隔0.1秒获取音量大小
-                    new Thread(mGetVoiceLevelRunnable).start();
+                    mExecutor.execute(mGetVoiceLevelRunnable);
                     break;
                 case MSG_VOICE_CHANGE:
                     mDialogManager.updateVoiceLevel(mAudioRecordManager.getVoiceLevel(7));

@@ -3,7 +3,6 @@ package com.ezreal.audiorecordbutton;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.AudioManager;
-import android.media.PlaybackParams;
 
 /**
  * Created by wudeng on 2017/10/30.
@@ -77,7 +76,7 @@ public class AudioPlayManager {
                 sMediaPlayer.prepare();
             } else if (focus == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
                 if (listener != null) {
-                    listener.onError("播放出错:" + "AUDIOFOCUS_REQUEST_FAILED");
+                    listener.onError("播放出错:" + "AUDIO_FOCUS_REQUEST_FAILED");
                 }
             }
         } catch (Exception e) {
