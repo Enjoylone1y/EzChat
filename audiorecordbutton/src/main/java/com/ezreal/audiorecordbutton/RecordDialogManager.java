@@ -21,22 +21,23 @@ public class RecordDialogManager {
     private ImageView mIvVoiceLevel;
     private TextView mTvTip;
 
-    public RecordDialogManager(Context context){
+
+    protected RecordDialogManager(Context context){
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
     }
 
-    public void showDialogRecord(){
+    protected void showDialogRecord(){
         View view = mInflater.inflate(R.layout.dialog_audio_record_button,null);
         mDialog = new Dialog(mContext,R.style.Theme_Audio_Record_Button);
         mDialog.setContentView(view);
-        mIvRecord = (ImageView) mDialog.findViewById(R.id.iv_record);
-        mIvVoiceLevel = (ImageView) mDialog.findViewById(R.id.iv_voice_level);
-        mTvTip = (TextView) mDialog.findViewById(R.id.tv_dialog_tip);
+        mIvRecord =  mDialog.findViewById(R.id.iv_record);
+        mIvVoiceLevel = mDialog.findViewById(R.id.iv_voice_level);
+        mTvTip =  mDialog.findViewById(R.id.tv_dialog_tip);
         mDialog.show();
     }
 
-    public void showRecording(){
+    protected void showRecording(){
         if (mDialog != null && mDialog.isShowing()){
             mIvRecord.setImageResource(R.drawable.recorder);
             mIvVoiceLevel.setVisibility(View.VISIBLE);
@@ -44,7 +45,7 @@ public class RecordDialogManager {
         }
     }
 
-    public void showDialogToShort(){
+    protected void showDialogToShort(){
         if (mDialog != null && mDialog.isShowing()){
             mIvRecord.setImageResource(R.drawable.voice_to_short);
             mIvVoiceLevel.setVisibility(View.GONE);
@@ -52,7 +53,7 @@ public class RecordDialogManager {
         }
     }
 
-    public void showDialogWantCancel(){
+    protected void showDialogWantCancel(){
         if (mDialog != null && mDialog.isShowing()){
             mIvRecord.setImageResource(R.drawable.cancel);
             mIvVoiceLevel.setVisibility(View.GONE);
@@ -64,7 +65,7 @@ public class RecordDialogManager {
      * 根据音量大小更新 音量图标高度
      * @param level
      */
-    public void updateVoiceLevel(int level){
+    protected void updateVoiceLevel(int level){
         if (mDialog != null && mDialog.isShowing()){
             int resId = mContext.getResources().getIdentifier("v"+level,
                     "drawable",mContext.getPackageName());
@@ -72,7 +73,7 @@ public class RecordDialogManager {
         }
     }
 
-    public void dismissDialog(){
+    protected void dismissDialog(){
         if (mDialog != null){
             mDialog.dismiss();
             mDialog = null;

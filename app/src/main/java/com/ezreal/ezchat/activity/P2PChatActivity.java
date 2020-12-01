@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.amap.api.services.core.LatLonPoint;
-import com.ezreal.audiorecordbutton.AudioPlayManager;
+import com.ezreal.audiorecordbutton.AudioPlayer;
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.camera.CameraActivity;
 import com.ezreal.ezchat.chat.AudioPlayHandler;
@@ -187,8 +187,8 @@ public class P2PChatActivity extends BaseActivity
 
         if (isAudioPlay) {
             // 如果正在播放，那会先关闭当前播放
-            AudioPlayManager.pause();
-            AudioPlayManager.release();
+            AudioPlayer.pause();
+            AudioPlayer.release();
             mAudioPlayHandler.stopAnimTimer();
             isAudioPlay = false;
 
@@ -212,8 +212,8 @@ public class P2PChatActivity extends BaseActivity
         final ImageView imageView = holder.getImageView(R.id.iv_audio_sound);
         final boolean isLeft = message.getDirect() == MsgDirectionEnum.In;
 
-        AudioPlayManager.playAudio(this, audioAttachment.getPath(),
-                new AudioPlayManager.OnPlayAudioListener() {
+        AudioPlayer.playAudio(this, audioAttachment.getPath(),
+                new AudioPlayer.OnPlayAudioListener() {
                     @Override
                     public void onPlay() {
                         // 启动播放动画
@@ -449,7 +449,7 @@ public class P2PChatActivity extends BaseActivity
         NIMClient.getService(MsgService.class).setChattingAccount(mChatSession.getChatAccount(),
                 mChatSession.getSessionType());
 
-        AudioPlayManager.resume();
+        AudioPlayer.resume();
     }
 
     @Override
@@ -460,7 +460,7 @@ public class P2PChatActivity extends BaseActivity
                 .setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE,
                         SessionTypeEnum.None);
 
-        AudioPlayManager.pause();
+        AudioPlayer.pause();
 
 
     }
@@ -476,7 +476,7 @@ public class P2PChatActivity extends BaseActivity
         NIMClient.getService(MsgServiceObserve.class)
                 .observeAttachmentProgress(mProgressObserver, true);
 
-        AudioPlayManager.release();
+        AudioPlayer.release();
     }
 
     /********** 输入面板事件回调 *********/

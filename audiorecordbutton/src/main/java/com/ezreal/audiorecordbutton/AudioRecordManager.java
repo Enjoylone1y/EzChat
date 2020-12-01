@@ -19,7 +19,11 @@ public class AudioRecordManager {
     private OnAudioStateListener mStateListener;
     private boolean hasPrepare = false;
 
-    public static AudioRecordManager getInstance(String audioDir){
+    private AudioRecordManager(String audioDir){
+        mAudioDir = audioDir;
+    }
+
+    protected static AudioRecordManager getInstance(String audioDir){
         if (instance == null){
             synchronized (AudioRecordManager.class){
                 if (instance == null){
@@ -30,11 +34,11 @@ public class AudioRecordManager {
         return instance;
     }
 
-    public void setAudioStateListener(OnAudioStateListener listener){
+    protected void setAudioStateListener(OnAudioStateListener listener){
         mStateListener = listener;
     }
 
-    public void prepareAudio(){
+    protected void prepareAudio(){
         try {
             hasPrepare = false;
             File dir = new File(mAudioDir);
@@ -70,7 +74,7 @@ public class AudioRecordManager {
 
     }
 
-    public int getVoiceLevel(int maxLevel){
+    protected int getVoiceLevel(int maxLevel){
         try {
             if (hasPrepare){
                 // getMaxAmplitude = 0 - 32767
@@ -82,25 +86,22 @@ public class AudioRecordManager {
         return 1;
     }
 
-    public void releaseAudio(){
+    protected void releaseAudio(){
         mMediaRecorder.stop();
         mMediaRecorder.release();
         mMediaRecorder = null;
         hasPrepare = false;
     }
 
-    public void cancelAudio(){
+    protected void cancelAudio(){
         releaseAudio();
         if (mCurrentFilePath != null){
             File file = new File(mCurrentFilePath);
             file.delete();
         }
     }
-    private AudioRecordManager(String audioDir){
-        mAudioDir = audioDir;
-    }
 
-    public interface OnAudioStateListener{
+    protected interface OnAudioStateListener{
         void prepareError(String message);
         void prepareFinish(String audioFilePath);
     }

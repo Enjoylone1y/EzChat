@@ -8,7 +8,7 @@ import android.media.AudioManager;
  * Created by wudeng on 2017/10/30.
  */
 
-public class AudioPlayManager {
+public class AudioPlayer {
 
     private static MediaPlayer sMediaPlayer;
     private static boolean isPause;
