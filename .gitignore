@@ -15,3 +15,4 @@
 .idea/runConfigurations.xml
 app/release/
 ez_chat_keystore.jks
+local.properties
